@@ -1,0 +1,151 @@
+.contactSection {
+  padding: 80px 0;
+  background-color: #f2ede9; /* 薄いベージュグレーの背景 */
+}
+
+.contactCard {
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+  display: flex;
+  padding: 50px;
+  gap: 50px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.contactLeft {
+  flex: 1;
+  border-right: 1px solid #eee;
+  padding-right: 50px;
+}
+
+.leftLine {
+  width: 100%;
+  height: 2px;
+  background-color: #999;
+  margin-bottom: 20px;
+}
+
+.contactTitle {
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.yellowBar {
+  background-color: #f39c12;
+  color: #fff;
+  font-size: 10px;
+  letter-spacing: 3px;
+  padding: 5px 10px;
+  display: inline-block;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.contactDesc {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.8;
+}
+
+.contactRight {
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 30px;
+}
+
+.contactRow {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.iconWrap {
+  width: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.rowLabel {
+  width: 120px;
+  font-size: 14px;
+  color: #555;
+  font-weight: bold;
+}
+
+.rowContent {
+  flex: 1;
+}
+
+.phoneNum {
+  font-size: 28px;
+  font-weight: bold;
+  color: #555;
+  border-bottom: 1px solid #ccc;
+  display: inline-block;
+  line-height: 1;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+}
+
+.phoneTime {
+  font-size: 12px;
+  color: #666;
+}
+
+.mailBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  border: 1px solid #666;
+  padding: 15px 20px;
+  width: 250px;
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.mailBtn:hover {
+  background-color: #f8f9fa;
+}
+
+.arrow {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-top: 1px solid #333;
+  border-right: 1px solid #333;
+  transform: rotate(45deg);
+}
+
+@media (max-width: 768px) {
+  .contactCard {
+    flex-direction: column;
+    padding: 30px;
+    gap: 30px;
+  }
+  .contactLeft {
+    border-right: none;
+    border-bottom: 1px solid #eee;
+    padding-right: 0;
+    padding-bottom: 30px;
+  }
+  .contactRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .iconWrap {
+    display: none;
+  }
+  .rowLabel {
+    width: auto;
+  }
+}

@@ -1,0 +1,32 @@
+.companySection {
+  padding: 60px 0;
+  background-color: #fff;
+}
+.companyTitle {
+  text-align: center;
+  font-size: 24px;
+  color: var(--primary-color);
+  margin-bottom: 40px;
+}
+.companyTable {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+.companyTable th, .companyTable td {
+  padding: 15px 20px;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  text-align: left;
+  font-size: 14px;
+}
+.companyTable th {
+  width: 25%;
+  background-color: #fafafa;
+  color: #555;
+  font-weight: normal;
+}
+.companyTable td {
+  width: 75%;
+}

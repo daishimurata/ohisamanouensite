@@ -1,0 +1,71 @@
+.faqSection {
+  padding: 60px 0;
+  background-color: #fff;
+}
+.faqContainer {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.header {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 50px;
+}
+.headerLeft {
+  display: flex;
+  flex-direction: column;
+}
+.label {
+  color: #f39c12;
+  font-weight: bold;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 5px;
+}
+.faqTitle {
+  font-size: 32px;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+.headerRight {
+  color: #666;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.faqList {
+  border-top: 1px solid var(--border-color);
+}
+.faqItem {
+  border-bottom: 1px solid var(--border-color);
+  padding: 20px 0;
+}
+.faqQ {
+  font-weight: bold;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.qIcon {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  background-color: var(--primary-color);
+  color: #fff;
+  border-radius: 50%;
+  margin-right: 15px;
+  font-size: 14px;
+}
+.faqA {
+  color: #555;
+  padding-left: 39px; /* Qアイコンの幅＋マージン分 */
+  font-size: 14px;
+  line-height: 1.6;
+}

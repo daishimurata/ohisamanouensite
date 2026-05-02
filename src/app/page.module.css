@@ -1,142 +1,202 @@
-.page {
-  --background: #fafafa;
-  --foreground: #fff;
-
-  --text-primary: #000;
-  --text-secondary: #666;
-
-  --button-primary-hover: #383838;
-  --button-secondary-hover: #f2f2f2;
-  --button-secondary-border: #ebebeb;
-
+/* Wireframe Styles */
+.header {
   display: flex;
-  flex: 1;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-geist-sans);
-  background-color: var(--background);
-}
-
-.main {
-  display: flex;
-  flex: 1;
-  width: 100%;
-  max-width: 800px;
-  flex-direction: column;
-  align-items: flex-start;
   justify-content: space-between;
-  background-color: var(--foreground);
-  padding: 120px 60px;
+  align-items: center;
+  padding: 1rem 2rem;
+  border-bottom: 2px solid #ccc;
 }
-
-.intro {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-  gap: 24px;
-}
-
-.intro h1 {
-  max-width: 320px;
-  font-size: 40px;
-  font-weight: 600;
-  line-height: 48px;
-  letter-spacing: -2.4px;
-  text-wrap: balance;
-  color: var(--text-primary);
-}
-
-.intro p {
-  max-width: 440px;
-  font-size: 18px;
-  line-height: 32px;
-  text-wrap: balance;
-  color: var(--text-secondary);
-}
-
-.intro a {
-  font-weight: 500;
-  color: var(--text-primary);
-}
-
-.ctas {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  max-width: 440px;
-  gap: 16px;
-  font-size: 14px;
-}
-
-.ctas a {
+.logoPlaceholder {
+  width: 150px;
+  height: 50px;
+  background-color: #eee;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 40px;
-  padding: 0 16px;
-  border-radius: 128px;
-  border: 1px solid transparent;
-  transition: 0.2s;
+  border: 1px dashed #aaa;
+}
+.nav {
+  display: flex;
+  gap: 1.5rem;
+}
+.navLink {
+  text-decoration: none;
+  color: #555;
+  font-weight: bold;
+}
+.placeholderText {
+  color: #999;
+  font-weight: bold;
+}
+
+.hero {
+  padding: 2rem 0;
+  text-align: center;
+}
+.imagePlaceholderHero {
+  width: 100%;
+  height: 400px;
+  background-color: #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px dashed #aaa;
+  margin-bottom: 2rem;
+}
+.heroTitle {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+.heroSubtitle {
+  color: #666;
+  margin-bottom: 2rem;
+}
+.button {
+  padding: 0.75rem 2rem;
+  background-color: #333;
+  color: #fff;
+  border: none;
   cursor: pointer;
-  width: fit-content;
-  font-weight: 500;
+  font-weight: bold;
+  border-radius: 4px;
 }
 
-a.primary {
-  background: var(--text-primary);
-  color: var(--background);
-  gap: 8px;
+.section {
+  padding: 3rem 2rem;
+  border-bottom: 1px solid #eee;
+}
+.sectionTitle {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid #333;
+  display: inline-block;
+  padding-bottom: 0.5rem;
 }
 
-a.secondary {
-  border-color: var(--button-secondary-border);
+.grid3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+.grid2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+.card {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+}
+.imagePlaceholderCard {
+  width: 100%;
+  height: 150px;
+  background-color: #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px dashed #aaa;
+  margin-bottom: 1rem;
+}
+.cardTitle {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+.cardDesc {
+  color: #555;
 }
 
-/* Enable hover only on non-touch devices */
-@media (hover: hover) and (pointer: fine) {
-  a.primary:hover {
-    background: var(--button-primary-hover);
-    border-color: transparent;
-  }
-
-  a.secondary:hover {
-    background: var(--button-secondary-hover);
-    border-color: transparent;
-  }
+.newsList {
+  list-style: none;
+  padding: 0;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.newsItem {
+  display: flex;
+  gap: 2rem;
+  padding: 1rem 0;
+  border-bottom: 1px dashed #ccc;
+}
+.newsDate {
+  font-weight: bold;
+  color: #666;
+}
+.newsTitle {
+  color: #333;
 }
 
-@media (max-width: 600px) {
-  .main {
-    padding: 48px 24px;
-  }
-
-  .intro {
-    gap: 16px;
-  }
-
-  .intro h1 {
-    font-size: 32px;
-    line-height: 40px;
-    letter-spacing: -1.92px;
-  }
+.testimonialCard {
+  border: 1px solid #ccc;
+  padding: 2rem;
+  border-radius: 8px;
+  background-color: #fafafa;
+}
+.testimonialName {
+  margin-bottom: 1rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  .logo {
-    filter: invert();
-  }
+.faqList {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.faqItem {
+  margin-bottom: 1.5rem;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  border-radius: 4px;
+}
+.faqQ {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+.faqA {
+  color: #555;
+}
 
-  .page {
-    --background: #000;
-    --foreground: #000;
+.contactBox {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  border: 2px solid #333;
+  padding: 2rem;
+  border-radius: 8px;
+}
+.phoneBox {
+  margin: 2rem 0;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+.mapPlaceholder {
+  width: 100%;
+  height: 300px;
+  background-color: #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px dashed #aaa;
+  margin-top: 2rem;
+}
 
-    --text-primary: #ededed;
-    --text-secondary: #999;
-
-    --button-primary-hover: #ccc;
-    --button-secondary-hover: #1a1a1a;
-    --button-secondary-border: #1a1a1a;
-  }
+.footer {
+  text-align: center;
+  padding: 2rem;
+  background-color: #333;
+  color: #fff;
+}
+.footerLinks {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+.footerLinks a {
+  color: #ccc;
+  text-decoration: none;
+}
+.copy {
+  font-size: 0.875rem;
+  color: #888;
 }

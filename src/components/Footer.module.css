@@ -1,0 +1,161 @@
+.footerSection {
+  background-color: #f3a61c;
+  color: #fff;
+  position: relative;
+  padding-bottom: 20px;
+}
+.wave {
+  width: 100%;
+  height: 50px;
+  margin-top: -1px;
+}
+.wave svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.footerContainer {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.footerContent {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 20px;
+  padding-bottom: 50px;
+}
+.footerLeft {
+  flex: 1;
+  padding-right: 40px;
+  border-right: 1px solid rgba(255, 255, 255, 0.4);
+  display: flex;
+  gap: 60px; /* 農園と企画の間のスペース */
+}
+.footerRight {
+  flex: 1;
+  padding-left: 60px; /* 余白を広めに調整 */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* 上部情報と下部メニューを離す */
+}
+.facilityBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.footerLogoWrapper {
+  margin-bottom: 30px;
+  min-height: 55px;
+  display: flex;
+  align-items: center;
+}
+.footerLogoNouen {
+  height: 55px;
+  width: auto;
+  object-fit: contain;
+}
+.footerLogoKikaku {
+  height: 55px;
+  width: 180px; /* 横幅を固定して上下をカット */
+  object-fit: cover;
+  object-position: center;
+}
+.companyInfo p {
+  margin: 0 0 10px 0;
+  font-size: 13px;
+  font-weight: bold;
+}
+.companyName {
+  font-size: 14px !important; /* 1行に収まるように少し縮小 */
+  margin-bottom: 15px !important;
+  white-space: nowrap; /* 強制的に1行にする */
+}
+.izayaInfoBlock {
+  margin-bottom: 30px;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* 余った高さを占有 */
+}
+.izayaLogoWrapper {
+  margin: 0 0 15px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.3);
+  padding-bottom: 12px;
+}
+.footerLogoIzaya {
+  height: 30px;
+  width: auto;
+  object-fit: contain;
+}
+.izayaDescription {
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 0;
+  opacity: 0.9;
+}
+.contactInfo {
+  margin-top: auto; /* 自動でスペースを確保して下（地図ボタンと同じ高さ）に押し下げる */
+  border-top: 1px dotted rgba(255, 255, 255, 0.3);
+  padding-top: 15px;
+}
+.contactInfo p {
+  margin: 0;
+  font-size: 13px;
+}
+.phoneNumber {
+  font-size: 18px !important;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-top: 5px !important;
+}
+.mapButton {
+  display: inline-block;
+  border: 1px solid #fff;
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 40px;
+  font-weight: bold;
+  font-size: 14px;
+  margin-top: 20px;
+  transition: all 0.3s ease;
+}
+.mapButton:hover {
+  background-color: #fff;
+  color: #f3a61c;
+}
+.footerLinks {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.footerLink {
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+}
+.footerLink:hover {
+  text-decoration: underline;
+}
+.footerCopy {
+  text-align: center;
+  font-size: 12px;
+  margin-top: 30px;
+}
+
+@media (max-width: 768px) {
+  .footerContent {
+    flex-direction: column;
+    gap: 40px;
+  }
+  .footerLeft {
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    padding-right: 0;
+    padding-bottom: 40px;
+  }
+  .footerRight {
+    padding-left: 0;
+  }
+}

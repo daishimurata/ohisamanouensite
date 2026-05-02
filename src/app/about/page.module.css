@@ -1,0 +1,117 @@
+.main {
+  background-color: #fcfcfc;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.greetingSection {
+  padding: 80px 0;
+  background-color: #fff;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: baseline;
+  gap: 15px;
+  margin-bottom: 30px;
+  border-bottom: none;
+}
+
+.sectionTitle {
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+.sectionSubtitle {
+  font-size: 16px;
+  color: #666;
+  letter-spacing: 2px;
+  font-family: Arial, sans-serif;
+  text-transform: uppercase;
+}
+
+.greetingContent {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  gap: 50px;
+  align-items: flex-start;
+}
+
+.greetingImageWrapper {
+  flex: 0 0 40%;
+  border-radius: 0;
+  overflow: hidden;
+}
+
+.greetingImage {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.greetingTextWrapper {
+  flex: 1;
+}
+
+.greetingText p {
+  font-size: 15px;
+  line-height: 2;
+  color: #444;
+  margin-bottom: 24px;
+}
+
+.greetingText p:last-child {
+  margin-bottom: 0;
+}
+
+.signature {
+  margin-top: 50px;
+  text-align: right;
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+}
+
+.signature p {
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+  font-size: 18px;
+}
+
+.signature p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .greetingSection {
+    padding: 50px 0;
+  }
+  .greetingContent {
+    padding: 30px 20px;
+    flex-direction: column;
+    gap: 30px;
+  }
+  .greetingImageWrapper {
+    flex: none;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  .sectionTitle {
+    font-size: 26px;
+  }
+  .greetingText p {
+    font-size: 15px;
+  }
+  .signature p {
+    font-size: 16px;
+  }
+}
