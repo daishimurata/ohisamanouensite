@@ -5,6 +5,7 @@ import { Autoplay, Pagination, EffectFade } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-fade';
+import Link from 'next/link';
 import styles from './Hero.module.css';
 
 export const Hero = () => {
@@ -37,7 +38,11 @@ export const Hero = () => {
               <div className={styles.overlayBox}>
                 <h2 className={styles.overlayTitle}>{slide.title.split('\n').map((t, i) => <React.Fragment key={i}>{t}<br/></React.Fragment>)}</h2>
                 <p className={styles.overlayDesc}>{slide.desc}</p>
-                <a href="#about" className={styles.overlayButton}>詳しくはこちら</a>
+                {slide.id === 3 ? (
+                  <Link href="/kikaku" className={styles.overlayButton}>詳しくはこちら</Link>
+                ) : (
+                  <a href="#about" className={styles.overlayButton}>詳しくはこちら</a>
+                )}
               </div>
             </div>
           </SwiperSlide>

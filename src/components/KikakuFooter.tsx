@@ -3,7 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import styles from './Footer.module.css';
 
-export const Footer = () => {
+export const KikakuFooter = () => {
   return (
     <footer className={styles.footerSection}>
       <div className={styles.wave}>
@@ -14,23 +14,7 @@ export const Footer = () => {
       <div className={styles.footerContainer}>
         <div className={styles.footerContent}>
           <div className={styles.footerLeft}>
-            {/* 農園ブロック */}
-            <Link href="/" className={styles.facilityBlock} style={{ textDecoration: 'none', color: 'inherit', display: 'block', cursor: 'pointer' }}>
-              <div className={styles.footerLogoWrapper}>
-                <img src="/logo-yoko-ohisama.png" alt="おひさま農園" className={styles.footerLogoNouen} style={{ filter: 'brightness(0) invert(1)' }} />
-              </div>
-              <div className={styles.companyInfo}>
-                <p className={styles.companyName}>「農を楽しむ」</p>
-                <p>就労継続支援B型事業所</p>
-                <p>〒510-0323</p>
-                <p>三重県鈴鹿市伊船町2756-1</p>
-              </div>
-              <div className={styles.mapButton} onClick={(e) => { e.preventDefault(); window.open('https://maps.google.com/?q=三重県鈴鹿市伊船町2756-1', '_blank'); }}>
-                地図
-              </div>
-            </Link>
-            
-            {/* 企画ブロック */}
+            {/* 企画ブロック (左側に配置) */}
             <Link href="/kikaku" className={styles.facilityBlock} style={{ textDecoration: 'none', color: 'inherit', display: 'block', cursor: 'pointer' }}>
               <div className={styles.footerLogoWrapper}>
                 <img src="/logo-kikaku-white.png" alt="おひさま企画" className={styles.footerLogoKikaku} />
@@ -42,6 +26,22 @@ export const Footer = () => {
                 <p>三重県鈴鹿市白子本町15-5</p>
               </div>
               <div className={styles.mapButton} onClick={(e) => { e.preventDefault(); window.open('https://maps.google.com/?q=三重県鈴鹿市白子本町15-5', '_blank'); }}>
+                地図
+              </div>
+            </Link>
+            
+            {/* 農園ブロック (右側に配置) */}
+            <Link href="/" className={styles.facilityBlock} style={{ textDecoration: 'none', color: 'inherit', display: 'block', cursor: 'pointer' }}>
+              <div className={styles.footerLogoWrapper}>
+                <img src="/logo-yoko-ohisama.png" alt="おひさま農園" className={styles.footerLogoNouen} style={{ filter: 'brightness(0) invert(1)' }} />
+              </div>
+              <div className={styles.companyInfo}>
+                <p className={styles.companyName}>「農を楽しむ」</p>
+                <p>就労継続支援B型事業所</p>
+                <p>〒510-0323</p>
+                <p>三重県鈴鹿市伊船町2756-1</p>
+              </div>
+              <div className={styles.mapButton} onClick={(e) => { e.preventDefault(); window.open('https://maps.google.com/?q=三重県鈴鹿市伊船町2756-1', '_blank'); }}>
                 地図
               </div>
             </Link>
@@ -68,7 +68,7 @@ export const Footer = () => {
           </div>
         </div>
         <div className={styles.footerCopy}>
-          Copyright&copy; おひさま農園 All Rights Reserved.
+          Copyright&copy; おひさま企画 All Rights Reserved.
         </div>
       </div>
     </footer>

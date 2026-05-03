@@ -52,3 +52,26 @@ ul {
   color: #888;
   font-size: 14px;
 }
+
+/* おひさま企画用テーマカラー */
+.theme-kikaku {
+  --primary-color: #00a8cc; /* 爽やかなブルーグリーン */
+  --secondary-color: #ff6b6b;
+}
+
+/* Kikaku Theme Overrides for originally hardcoded colors in CSS modules */
+.theme-kikaku [class*="qIcon"],
+.theme-kikaku [class*="label"],
+.theme-kikaku [class*="stars"] {
+  color: var(--primary-color) !important;
+}
+
+.theme-kikaku [class*="yellowBar"],
+.theme-kikaku [class*="leftLine"],
+.theme-kikaku [class*="footerSection"] {
+  background-color: var(--primary-color) !important;
+}
+
+.theme-kikaku [class*="mapButton"]:hover {
+  color: var(--primary-color) !important;
+}

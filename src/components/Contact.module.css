@@ -72,10 +72,11 @@
 }
 
 .rowLabel {
-  width: 120px;
+  width: 150px;
   font-size: 14px;
   color: #555;
   font-weight: bold;
+  white-space: nowrap;
 }
 
 .rowContent {
@@ -102,14 +103,15 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 30px;
+  gap: 20px;
   border: 1px solid #666;
   padding: 15px 20px;
-  width: 250px;
+  width: 280px;
   color: #333;
   text-decoration: none;
   font-weight: bold;
   transition: all 0.3s;
+  white-space: nowrap;
 }
 
 .mailBtn:hover {
