@@ -147,13 +147,15 @@
 @media (max-width: 768px) {
   .footerContent {
     flex-direction: column;
-    gap: 40px;
+    gap: 30px;
   }
   .footerLeft {
+    flex-direction: column;
+    gap: 30px;
     border-right: none;
     border-bottom: 1px solid rgba(255, 255, 255, 0.4);
     padding-right: 0;
-    padding-bottom: 40px;
+    padding-bottom: 30px;
   }
   .footerRight {
     padding-left: 0;

@@ -128,14 +128,14 @@
 @media (max-width: 768px) {
   .contactCard {
     flex-direction: column;
-    padding: 30px;
-    gap: 30px;
+    padding: 20px;
+    gap: 20px;
   }
   .contactLeft {
     border-right: none;
     border-bottom: 1px solid #eee;
     padding-right: 0;
-    padding-bottom: 30px;
+    padding-bottom: 20px;
   }
   .contactRow {
     flex-direction: column;
@@ -147,5 +147,9 @@
   }
   .rowLabel {
     width: auto;
+  }
+  .mailBtn {
+    width: 100%;
+    box-sizing: border-box;
   }
 }

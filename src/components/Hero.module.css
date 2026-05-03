@@ -65,3 +65,36 @@
   font-size: 14px;
   text-align: center;
 }
+
+@media (max-width: 768px) {
+  .heroContainer {
+    height: 400px;
+  }
+  .overlayBox {
+    left: 5%;
+    right: 5%;
+    padding: 20px;
+    max-width: none;
+  }
+  .overlayTitle {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  .overlayDesc {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .overlayButton {
+    padding: 8px 20px;
+    font-size: 13px;
+  }
+  .badge {
+    width: 80px;
+    height: 80px;
+    top: 10px;
+    right: 10px;
+  }
+  .badgeText {
+    font-size: 10px;
+  }
+}

@@ -30,3 +30,23 @@
 .companyTable td {
   width: 75%;
 }
+
+@media (max-width: 768px) {
+  .companyTable th, .companyTable td {
+    display: block;
+    width: 100%;
+    padding: 10px 15px;
+    box-sizing: border-box;
+  }
+  .companyTable th {
+    border-bottom: none;
+    padding-bottom: 5px;
+    font-weight: bold;
+    background-color: transparent;
+  }
+  .companyTable td {
+    border-top: none;
+    padding-top: 0;
+    padding-bottom: 15px;
+  }
+}

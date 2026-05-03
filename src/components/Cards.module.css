@@ -39,3 +39,10 @@
   color: #666;
   line-height: 1.6;
 }
+
+@media (max-width: 768px) {
+  .cardGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
