@@ -36,6 +36,17 @@ export const Contact = () => {
                 <Link href="/contact" className={styles.mailBtn}>お問い合わせ <span className={styles.arrow}></span></Link>
               </div>
             </div>
+            <div className={styles.contactRow}>
+              <div className={styles.iconWrap}>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#06c755" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+              </div>
+              <div className={styles.rowLabel}>LINEのお問い合わせ</div>
+              <div className={styles.rowContent}>
+                <a href="https://lin.ee/nGtwRqF" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block' }}>
+                  <img src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png" alt="友だち追加" height="36" style={{ border: 0, verticalAlign: 'middle' }} />
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>

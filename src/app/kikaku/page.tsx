@@ -2,6 +2,7 @@ import React from 'react';
 import { KikakuHeader } from '@/components/KikakuHeader';
 import { KikakuHero } from '@/components/KikakuHero';
 import { KikakuServices } from '@/components/KikakuServices';
+import { KikakuInstagram } from '@/components/KikakuInstagram';
 import { KikakuNewsList } from '@/components/KikakuNewsList';
 import { KikakuTestimonials } from '@/components/KikakuTestimonials';
 import { KikakuFAQ } from '@/components/KikakuFAQ';
@@ -22,6 +23,7 @@ export default function KikakuPage() {
         <KikakuHero />
         <KikakuNewsList />
         <KikakuServices />
+        <KikakuInstagram />
         <KikakuTestimonials />
         <KikakuFAQ />
         <Company />

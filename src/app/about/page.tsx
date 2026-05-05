@@ -2,6 +2,7 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { PageHero } from '@/components/PageHero';
 import { Company } from '@/components/Company';
+import { PokapokaInstagram } from '@/components/PokapokaInstagram';
 import { Contact } from '@/components/Contact';
 import styles from './page.module.css';
 
@@ -58,6 +59,9 @@ export default function AboutPage() {
 
         {/* 会社概要（既存コンポーネント再利用） */}
         <Company />
+
+        {/* ぽかぽか隊 Instagramセクション */}
+        <PokapokaInstagram />
 
         {/* コンタクト（無料相談受付中） */}
         <Contact />

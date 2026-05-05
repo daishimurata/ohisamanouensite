@@ -24,12 +24,23 @@ export default function ClientContactForm() {
     }
 
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
+      // 1. メール通知用 (Web3Forms)
+      const emailPromise = fetch("https://api.web3forms.com/submit", {
         method: "POST",
         body: formData,
       });
 
-      const data = await response.json();
+      // 2. 自作管理画面のデータベース用 (Redis API)
+      const formJson = Object.fromEntries(formData.entries());
+      const dbPromise = fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formJson),
+      });
+
+      // 両方の送信を並列で待機
+      const [emailResponse] = await Promise.all([emailPromise, dbPromise]);
+      const data = await emailResponse.json();
 
       if (data.success) {
         setStatus("success");

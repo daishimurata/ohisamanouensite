@@ -49,9 +49,9 @@ export const Footer = () => {
           <div className={styles.footerRight}>
             {/* 合同会社Izaya情報ブロック */}
             <div className={styles.izayaInfoBlock}>
-              <div className={styles.izayaLogoWrapper}>
+              <Link href="/about" className={styles.izayaLogoWrapper} style={{ display: 'inline-block', cursor: 'pointer' }}>
                 <img src="/yoko-izaya.png" alt="合同会社Izaya" className={styles.footerLogoIzaya} style={{ filter: 'brightness(0) invert(1)' }} />
-              </div>
+              </Link>
               <p className={styles.izayaDescription}>
                 私たちは、障がいのある方が地域社会で自分らしく輝けるよう、多様な就労の機会と温かいサポートを提供しています。農作業からITスキルまで、一人ひとりの可能性を広げる支援を行っています。
               </p>
