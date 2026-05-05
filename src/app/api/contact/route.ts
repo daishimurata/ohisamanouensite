@@ -3,8 +3,9 @@ import { redis } from '@/lib/redis';
 
 export async function GET() {
   try {
-    const rawData = await redis.get('contacts');
-    const contacts = rawData ? JSON.parse(rawData) : [];
+    const rawData = await redis.get<any>('contacts');
+    const parsedData = typeof rawData === 'string' ? JSON.parse(rawData) : rawData;
+    const contacts = parsedData || [];
     return NextResponse.json({ contacts });
   } catch (error) {
     console.error('Error fetching contacts:', error);
@@ -17,8 +18,9 @@ export async function POST(request: Request) {
     const data = await request.json();
     
     // 既存のお問い合わせを取得
-    const rawData = await redis.get('contacts');
-    const contacts = rawData ? JSON.parse(rawData) : [];
+    const rawData = await redis.get<any>('contacts');
+    const parsedData = typeof rawData === 'string' ? JSON.parse(rawData) : rawData;
+    const contacts = parsedData || [];
     
     // 新しいお問い合わせを追加
     const newContact = {
@@ -45,8 +47,9 @@ export async function PUT(request: Request) {
   try {
     const { id, action } = await request.json();
     
-    const rawData = await redis.get('contacts');
-    let contacts = rawData ? JSON.parse(rawData) : [];
+    const rawData = await redis.get<any>('contacts');
+    const parsedData = typeof rawData === 'string' ? JSON.parse(rawData) : rawData;
+    let contacts = parsedData || [];
     
     if (action === 'markAsRead') {
       contacts = contacts.map((c: any) => c.id === id ? { ...c, isRead: true } : c);
