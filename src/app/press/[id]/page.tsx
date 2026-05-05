@@ -105,13 +105,16 @@ const pressReleases = [
   }
 ];
 
+import { Metadata } from 'next';
+
 // paramsの型定義
 type Props = {
   params: Promise<{ id: string }>;
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
 // メタデータの生成
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resolvedParams = await params;
   const id = parseInt(resolvedParams.id, 10);
   const article = pressReleases.find(p => p.id === id);

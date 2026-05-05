@@ -8,8 +8,8 @@ export async function GET(request: Request) {
   const key = `news:${type}`;
 
   try {
-    const rawData = await redis.get(key);
-    const news = rawData ? JSON.parse(rawData) : [];
+    const rawData = await redis.get<any>(key);
+    const news = typeof rawData === 'string' ? JSON.parse(rawData) : (rawData || []);
     return NextResponse.json({ news });
   } catch (error) {
     console.error('Error fetching news:', error);

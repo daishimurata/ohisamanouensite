@@ -11,8 +11,9 @@ const defaultSettings = {
 
 export async function GET() {
   try {
-    const rawData = await redis.get('settings');
-    const settings = rawData ? { ...defaultSettings, ...JSON.parse(rawData) } : defaultSettings;
+    const rawData = await redis.get<any>('settings');
+    const parsedData = typeof rawData === 'string' ? JSON.parse(rawData) : rawData;
+    const settings = parsedData ? { ...defaultSettings, ...parsedData } : defaultSettings;
     return NextResponse.json({ settings });
   } catch (error) {
     console.error('Error fetching settings:', error);
@@ -25,8 +26,9 @@ export async function POST(request: Request) {
     const data = await request.json();
     
     // 現在の設定を取得してマージ
-    const rawData = await redis.get('settings');
-    const currentSettings = rawData ? JSON.parse(rawData) : defaultSettings;
+    const rawData = await redis.get<any>('settings');
+    const parsedData = typeof rawData === 'string' ? JSON.parse(rawData) : rawData;
+    const currentSettings = parsedData || defaultSettings;
     const newSettings = { ...currentSettings, ...data };
     
     // Redisに保存
