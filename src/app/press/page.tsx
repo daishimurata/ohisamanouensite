@@ -13,8 +13,17 @@ export const metadata = {
 
 export const dynamic = 'force-dynamic';
 
+type NewsItem = {
+  id: string | number;
+  date: string;
+  category?: string;
+  title: string;
+  link?: string;
+  content?: string;
+};
+
 export default async function PressPage() {
-  let pressReleases = [];
+  let pressReleases: NewsItem[] = [];
   try {
     const rawData = await redis.get<any>('news:farm');
     const parsedData = typeof rawData === 'string' ? JSON.parse(rawData) : rawData;
@@ -42,7 +51,7 @@ export default async function PressPage() {
         <section className={styles.pressSection}>
           <div className={styles.container}>
             <ul className={styles.pressList}>
-              {pressReleases.map((press) => (
+              {pressReleases.map((press: NewsItem) => (
                 <li key={press.id} className={styles.pressItem}>
                   <Link href={`/press/${press.id}`} className={styles.pressLink}>
                     <div className={styles.pressMeta}>
