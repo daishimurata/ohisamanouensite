@@ -22,7 +22,7 @@ export default function HandmadePage() {
 
           <div className={styles.imageWrap}>
             <img 
-              src="/images/kikaku/IMG_2438.jpeg" 
+              src="/images/kikaku/DSC_0011.JPG" 
               alt="ハンドメイド制作の活動風景" 
               style={{ width: '100%', height: 'auto', display: 'block' }} 
             />

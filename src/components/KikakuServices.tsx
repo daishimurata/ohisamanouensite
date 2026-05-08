@@ -31,7 +31,7 @@ export const KikakuServices = () => {
           {/* Card 3 */}
           <Link href="/kikaku/handmade" className={styles.card} style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}>
             <div className={styles.cardImage}>
-              <img src="/images/kikaku/IMG_2438.jpeg" alt="ハンドメイド" style={{width: '100%', height: '100%', objectFit: 'cover'}} />
+              <img src="/images/kikaku/DSC_0011.JPG" alt="ハンドメイド" style={{width: '100%', height: '100%', objectFit: 'cover'}} />
             </div>
             <div className={styles.cardContent}>
               <h3 className={styles.cardTitle}>ハンドメイド・物販</h3>
