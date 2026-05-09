@@ -11,7 +11,7 @@ export const KikakuServices = () => {
           {/* Card 1 */}
           <Link href="/kikaku/web-media" className={styles.card} style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}>
             <div className={styles.cardImage}>
-              <img src="/images/kikaku/スクリーンショット 2026-05-03 16.12.44.png" alt="Webメディア運営" style={{width: '100%', height: '100%', objectFit: 'cover'}} />
+              <img src="/Photo/DSC_0023.JPG" alt="Webメディア運営" style={{width: '100%', height: '100%', objectFit: 'cover'}} />
             </div>
             <div className={styles.cardContent}>
               <h3 className={styles.cardTitle}>Webメディア運営</h3>
@@ -21,7 +21,7 @@ export const KikakuServices = () => {
           {/* Card 2 */}
           <Link href="/kikaku/sns-marketing" className={styles.card} style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}>
             <div className={styles.cardImage}>
-              <img src="/images/kikaku/IMG_2437.jpeg" alt="SNS・マーケティング" style={{width: '100%', height: '100%', objectFit: 'cover'}} />
+              <img src="/Photo/DSC_0003.JPG" alt="SNS・マーケティング" style={{width: '100%', height: '100%', objectFit: 'cover'}} />
             </div>
             <div className={styles.cardContent}>
               <h3 className={styles.cardTitle}>SNS・Webマーケティング</h3>
@@ -31,7 +31,7 @@ export const KikakuServices = () => {
           {/* Card 3 */}
           <Link href="/kikaku/handmade" className={styles.card} style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}>
             <div className={styles.cardImage}>
-              <img src="/images/kikaku/DSC_0011.JPG" alt="ハンドメイド" style={{width: '100%', height: '100%', objectFit: 'cover'}} />
+              <img src="/Photo/DSC_0011.JPG" alt="ハンドメイド" style={{width: '100%', height: '100%', objectFit: 'cover'}} />
             </div>
             <div className={styles.cardContent}>
               <h3 className={styles.cardTitle}>ハンドメイド・物販</h3>

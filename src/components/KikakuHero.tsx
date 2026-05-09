@@ -15,9 +15,9 @@ export const KikakuHero = () => {
   ];
 
   const images = [
-    '/images/kikaku/IMG_2435.jpeg',
-    '/images/kikaku/IMG_2436.jpeg',
-    '/images/kikaku/IMG_2437.jpeg'
+    '/Photo/DSC_0043.JPG',
+    '/Photo/DSC_0046.JPG',
+    '/Photo/DSC_0003.JPG'
   ];
 
   return (
