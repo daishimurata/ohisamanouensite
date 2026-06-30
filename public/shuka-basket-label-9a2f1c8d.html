@@ -291,15 +291,15 @@
     }
 
     /* ----------------------------------------------------
-       🖨️ 印刷エリア設定 (余白マージンを考慮し安全なサイズに調整)
+       🖨️ 印刷エリア設定 (スマホの強制余白に絶対干渉しない超コンパクトサイズ)
        ---------------------------------------------------- */
     .print-sheet {
       background-color: #ffffff;
-      width: 210mm;
-      height: 290mm; /* 297mmから290mmに縮め、プリンターの余白干渉を防ぐ */
+      width: 190mm; /* A4の幅210mmに対して左右10mmずつのマージンを完全確保 */
+      height: 265mm; /* A4の高さ297mmに対して上下16mmずつのマージンを完全確保 */
       display: grid;
-      grid-template-columns: repeat(2, 104mm); /* 105mmから104mm */
-      grid-template-rows: repeat(5, 58mm); /* 59.4mmから58mm */
+      grid-template-columns: repeat(2, 95mm); /* 各95mm */
+      grid-template-rows: repeat(5, 53mm); /* 各53mm */
       box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0,0,0,0.05);
       box-sizing: border-box;
       overflow: hidden;
@@ -307,13 +307,13 @@
     }
 
     /* ----------------------------------------------------
-       🏷️ 各ラベルのデザイン (横長: 104mm × 58mm)
+       🏷️ 各ラベルのデザイン (横長: 95mm × 53mm)
        ---------------------------------------------------- */
     .label-card {
-      width: 104mm;
-      height: 58mm;
+      width: 95mm;
+      height: 53mm;
       border: 0.2mm dashed var(--color-medium-gray);
-      padding: 3mm 4.5mm 1.5mm 4.5mm;
+      padding: 2.5mm 3.5mm 1.5mm 3.5mm; /* 余白を微縮小 */
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
@@ -327,14 +327,14 @@
       align-items: center;
       justify-content: space-between;
       border-bottom: 0.8mm solid var(--color-black);
-      padding-bottom: 1.5mm;
-      margin-bottom: 1.5mm;
-      height: 20mm;
+      padding-bottom: 1.0mm;
+      margin-bottom: 1.2mm;
+      height: 17mm; /* 20mmから17mmへ縮小し店名の高さを確保 */
     }
 
     .header-left {
       width: 38%;
-      font-size: 6.0mm;
+      font-size: 5.2mm; /* 6.0mmから5.2mmへ */
       font-weight: 900;
       color: var(--color-black);
       letter-spacing: 0.2mm;
@@ -345,7 +345,7 @@
 
     .header-arrow {
       width: 10%;
-      font-size: 6.5mm;
+      font-size: 5.5mm;
       font-weight: 900;
       color: var(--color-black);
       text-align: center;
@@ -364,13 +364,13 @@
     .dest-line {
       border-bottom: 0.6mm solid var(--color-black);
       width: 100%;
-      height: 7mm;
+      height: 6mm;
       display: inline-block;
     }
 
     /* 選択された行き先がそのまま印刷されるテキスト */
     .dest-text {
-      font-size: 8.5mm;
+      font-size: 7.8mm; /* 8.5mmから7.8mmへ縮小 */
       font-weight: 900;
       color: var(--color-black);
       border-bottom: 0.3mm solid var(--color-black);
@@ -393,7 +393,7 @@
 
     .table-header {
       display: flex;
-      font-size: 1.8mm;
+      font-size: 1.6mm;
       font-weight: 900;
       color: var(--color-black);
       border-bottom: 0.4mm solid var(--color-black);
@@ -424,7 +424,7 @@
     .write-row {
       display: flex;
       align-items: center;
-      height: 6.2mm; /* 6.5mmから6.2mmに微調整 */
+      height: 5.6mm; /* 6.2mmから5.6mmに微調整 */
       border-bottom: 0.2mm dashed var(--color-medium-gray);
       position: relative;
     }
@@ -433,13 +433,13 @@
       border-bottom: 0.4mm solid var(--color-black);
     }
 
-    /* 動的に品目が表示されるエリア */
+    /* 品目が表示されるエリア */
     .row-item-field {
       width: 72%;
       height: 100%;
       display: flex;
       align-items: center;
-      font-size: 4.0mm;
+      font-size: 3.6mm; /* 4.0mmから3.6mmへ */
       font-weight: bold;
       color: var(--color-black);
       padding-left: 1mm;
@@ -448,7 +448,7 @@
       text-overflow: ellipsis;
     }
 
-    /* 動的に数量が表示されるエリア */
+    /* 数量が表示されるエリア */
     .row-qty-field {
       width: 28%;
       height: 100%;
@@ -457,19 +457,19 @@
       align-items: flex-end;
       padding-right: 1mm;
       padding-bottom: 0.3mm;
-      font-size: 2.0mm;
+      font-size: 1.8mm;
       color: var(--color-medium-gray);
     }
 
     .unit-text {
       margin-left: 1mm;
-      font-size: 1.8mm;
+      font-size: 1.6mm;
       color: var(--color-black);
       font-weight: bold;
     }
 
     /* ----------------------------------------------------
-       🚀 単一品種巨大化モード専用の CSS
+       🚀 単一品種巨大化モード専用の CSS (サイズ制限適応)
        ---------------------------------------------------- */
     .label-body.single-item-mode .table-header {
       display: none !important;
@@ -481,7 +481,7 @@
     }
 
     .label-body.single-item-mode .write-row:first-child {
-      height: 19mm; /* 20mmから19mmに微調整 */
+      height: 17.5mm; /* 19mmから17.5mmに微調整 */
       border-bottom: 0.4mm solid var(--color-black);
       display: flex;
       align-items: center;
@@ -489,7 +489,7 @@
     }
 
     .label-body.single-item-mode .write-row:first-child .row-item-field {
-      font-size: 8.5mm;
+      font-size: 7.8mm; /* 8.5mmから7.8mmへ */
       font-weight: 900;
       width: 70%;
       height: 100%;
@@ -498,7 +498,7 @@
     }
 
     .label-body.single-item-mode .write-row:first-child .row-qty-field {
-      font-size: 3.5mm;
+      font-size: 3.0mm;
       width: 30%;
       height: 100%;
       display: flex;
@@ -508,12 +508,12 @@
     }
 
     .label-body.single-item-mode .write-row:first-child .row-qty-field span[id^="qty-"] {
-      font-size: 7.5mm;
+      font-size: 6.8mm; /* 7.5mmから6.8mmへ */
       font-weight: 900;
     }
 
     .label-body.single-item-mode .write-row:first-child .row-qty-field .unit-text {
-      font-size: 3.5mm;
+      font-size: 3.0mm; /* 3.5mmから3.0mmへ */
       font-weight: 900;
       margin-left: 1mm;
     }
@@ -528,14 +528,14 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
-      margin-top: 1.5mm;
-      height: 4.5mm;
+      margin-top: 1.2mm;
+      height: 4.0mm;
       line-height: 1;
       width: 100%;
     }
 
     .label-footer-thanks {
-      font-size: 2.4mm;
+      font-size: 2.2mm;
       font-weight: bold;
       color: var(--color-medium-gray);
       letter-spacing: 0.1mm;
@@ -543,7 +543,7 @@
     }
 
     .label-footer-contact {
-      font-size: 2.8mm;
+      font-size: 2.4mm;
       font-weight: bold;
       color: var(--color-black);
       letter-spacing: 0.15mm;
@@ -551,19 +551,19 @@
     }
 
     /* ----------------------------------------------------
-       🖨️ 印刷用メディアクエリ (強制的に余白ゼロにして2ページ化を防ぐ)
+       🖨️ 印刷用メディアクエリ (余白を10mm完全固定し1ページに収める)
        ---------------------------------------------------- */
     @media print {
       @page {
         size: A4 portrait;
-        margin: 0mm; /* ブラウザ標準の印刷余白を完全にリセット */
+        margin: 0mm; /* ブラウザ余白を強制リセット */
       }
       html, body {
         width: 210mm;
         height: 297mm;
         margin: 0 !important;
         padding: 0 !important;
-        overflow: hidden; /* スクロールバーによる余計な2ページ化を防止 */
+        overflow: hidden;
       }
       .print-guide {
         display: none !important;
@@ -571,14 +571,13 @@
       .print-sheet {
         box-shadow: none;
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 210mm;
-        height: 297mm;
+        top: 10mm; /* 強制的に余白10mm（1cm）を配置 */
+        left: 10mm; /* 強制的に余白10mm（1cm）を配置 */
+        width: 190mm; /* コンテンツ自体の横幅 */
+        height: 265mm; /* コンテンツ自体の縦幅 */
         page-break-inside: avoid;
         break-inside: avoid;
-        padding-top: 3.5mm; /* 少しだけ下に下げて、プリンターの給紙誤差を吸収 */
-        padding-left: 1mm;
+        padding: 0;
       }
       .label-card {
         border: 0.2mm dashed var(--color-black);
@@ -596,12 +595,7 @@
     <h2>出荷仕分け用カゴラベル 印刷ガイド（10枚共通品目＆店舗一括割り当て対応版）</h2>
     <ul>
       <li>この画面を印刷すると、A4用紙1枚からちょうど<strong>10枚（横2列×縦5段）</strong>のラベルが印刷されます。用紙印刷の方向は<strong>縦向き</strong>です。</li>
-      <li><strong>印刷時の設定注意：</strong>
-        <ul>
-          <li>用紙サイズ：<strong>A4</strong> / 方向：<strong>縦</strong> / 余白：<strong>「なし」</strong>（または最小） / 倍率：<strong>100%</strong></li>
-          <li>オプション：<strong>「背景のグラフィック」にチェックを入れる</strong></li>
-        </ul>
-      </li>
+      <li><strong>スマホからの印刷</strong>: スマートフォンから印刷する際も、設定などを変更せずそのまま等倍（100%）で印刷してください。周囲に自動で安全余白が配置され、1ページに完全に収まります。</li>
     </ul>
 
     <!-- 設定パネル -->
@@ -1023,15 +1017,16 @@
         const qtyEl = document.getElementById(`qty-${cardId}-1`);
         const val = itemEl.textContent;
         
+        // 95mmx53mmサイズに最適化された極大フォントサイズ指定（はみ出し防止）
         if (val.length > 8) {
-          itemEl.style.fontSize = '5.0mm';
+          itemEl.style.fontSize = '4.5mm';
         } else if (val.length > 5) {
-          itemEl.style.fontSize = '6.8mm';
+          itemEl.style.fontSize = '6.0mm';
         } else {
-          itemEl.style.fontSize = '8.5mm';
+          itemEl.style.fontSize = '7.8mm';
         }
 
-        qtyEl.style.fontSize = '7.5mm';
+        qtyEl.style.fontSize = '6.8mm';
       } else {
         labelBody.classList.remove('single-item-mode');
         
@@ -1041,14 +1036,14 @@
           const val = itemEl.textContent;
           
           if (val.length > 8) {
-            itemEl.style.fontSize = '2.5mm';
+            itemEl.style.fontSize = '2.2mm';
           } else if (val.length > 5) {
-            itemEl.style.fontSize = '3.2mm';
+            itemEl.style.fontSize = '3.0mm';
           } else {
-            itemEl.style.fontSize = '4.0mm';
+            itemEl.style.fontSize = '3.6mm';
           }
 
-          qtyEl.style.fontSize = '3.8mm';
+          qtyEl.style.fontSize = '3.4mm';
         }
       }
     }
@@ -1079,14 +1074,12 @@
       }
     }
 
-    // 数量同期
     function handleGlobalQtyInput(rowId, value) {
       for (let i = 1; i <= totalCards; i++) {
         updateQty(i, rowId, value);
       }
     }
 
-    // 単位同期
     function handleGlobalUnitChange(rowId, value) {
       for (let i = 1; i <= totalCards; i++) {
         updateUnit(i, rowId, value);
@@ -1180,6 +1173,7 @@
       }
     }
 
+    // 10枚すべての感謝メッセージテキストを一括更新する
     function updateThanksText(value) {
       const thanksElements = document.querySelectorAll('.label-footer-thanks');
       thanksElements.forEach(el => {
