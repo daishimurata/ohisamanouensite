@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>出荷仕分け用カゴラベルテンプレート（季節メッセージ付・白黒印刷） - おひさま農園</title>
+  <title>出荷仕分け用カゴラベルテンプレート（季節メッセージ付・品目数量選択・白黒印刷） - おひさま農園</title>
   <style>
     /* ----------------------------------------------------
        🎨 COLOR PALETTE (白黒・モノクロ印刷に最適化された高コントラスト設定)
@@ -68,7 +68,7 @@
       margin-bottom: 6px;
     }
 
-    /* 行き先設定エリア */
+    /* 行き先・品目設定エリア */
     .settings-section {
       background-color: #fafafa;
       border: 1px solid #ddd;
@@ -106,7 +106,7 @@
       flex-direction: column;
       gap: 6px;
       background-color: #f0f0f0;
-      padding: 10px 14px;
+      padding: 12px 14px;
       border-radius: 6px;
       font-size: 13px;
       font-weight: bold;
@@ -192,16 +192,29 @@
       color: var(--color-dark-gray);
     }
 
-    .setting-item {
+    /* 個別カードUI */
+    .setting-card {
+      background-color: #ffffff;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+
+    .setting-row {
       display: flex;
       align-items: center;
-      gap: 8px;
-      font-size: 13px;
+      gap: 6px;
+      width: 100%;
     }
 
     .setting-label {
       font-weight: bold;
-      min-width: 60px;
+      font-size: 12px;
+      min-width: 45px;
     }
 
     select, input[type="text"] {
@@ -217,7 +230,7 @@
     }
 
     .custom-input {
-      width: 120px;
+      width: 110px;
     }
 
     .btn-container {
@@ -382,17 +395,29 @@
       align-items: center;
       height: 6.5mm; /* 高さを抑えて店名へスペースを還元 */
       border-bottom: 0.2mm dashed var(--color-medium-gray);
+      position: relative;
     }
 
     .write-row:last-child {
       border-bottom: 0.4mm solid var(--color-black);
     }
 
+    /* 動的に品目が表示されるエリア（太字でしっかり印刷） */
     .row-item-field {
       width: 72%;
       height: 100%;
+      display: flex;
+      align-items: center;
+      font-size: 4.0mm;
+      font-weight: bold;
+      color: var(--color-black);
+      padding-left: 1mm;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
+    /* 動的に数量が表示されるエリア */
     .row-qty-field {
       width: 28%;
       height: 100%;
@@ -473,11 +498,12 @@
 
   <!-- 印刷ガイド & 設定パネル（画面上でのみ表示） -->
   <div class="print-guide">
-    <h2>出荷仕分け用カゴラベル 印刷ガイド（感謝メッセージ・連絡先付版）</h2>
+    <h2>出荷仕分け用カゴラベル 印刷ガイド（感謝メッセージ・品目数量対応版）</h2>
     <ul>
       <li>この画面を印刷すると、A4用紙1枚からちょうど<strong>10枚（横2列×縦5段）</strong>のラベルが印刷されます。用紙印刷の方向は<strong>縦向き</strong>です。</li>
-      <li><strong>感謝の言葉自動セット</strong>: 現在の季節（日付）を自動判定し、最適な感謝メッセージ（「暑い中〜」等）を自動的に選びます。「🔄 別の言葉に変える」ボタンでメッセージが変更できます。</li>
-      <li><strong>難読化プライベート公開</strong>: このページは他人に推測されにくい秘密 of URLで公開されています。URLを知らない第三者はアクセスできません。</li>
+      <li><strong>感謝の言葉自動セット</strong>: 現在の季節を自動判定し、最適な感謝メッセージ（「暑い中〜」等）を選びます。「🔄 別の言葉に変える」ボタンで切り替えられます。</li>
+      <li><strong>品目＆個数の印字機能</strong>: 行き先に加えて、出荷する品目・数量も画面上で選択・入力して事前に印刷できます。設定がない行は手書き用の空欄として出力されます。</li>
+      <li><strong>難読化プライベート公開</strong>: このページは他人に推測されにくい秘密のURLで公開されています。URLを知らない第三者はアクセスできません。</li>
       <li><strong>印刷時の設定注意：</strong>
         <ul>
           <li>用紙サイズ：<strong>A4</strong> / 方向：<strong>縦</strong> / 余白：<strong>「なし」</strong> / 倍率：<strong>100%</strong></li>
@@ -486,13 +512,13 @@
       </li>
     </ul>
 
-    <!-- 行き先設定パネル -->
+    <!-- 設定パネル -->
     <div class="settings-section">
       <div class="settings-title">📍 ラベルの設定</div>
       
       <!-- 一括設定コンテナ（左右半分ずつ） -->
       <div class="bulk-settings-container">
-        <!-- 感謝メッセージ設定バー（一括設定の上段、連絡先編集は非表示） -->
+        <!-- 感謝メッセージ設定バー -->
         <div class="contact-settings-bar">
           <div class="contact-settings-row">
             <span>感謝のメッセージ（フッター左側・薄い文字）：</span>
@@ -503,280 +529,112 @@
           </div>
         </div>
 
-        <!-- 左半分一括 -->
+        <!-- 左半分一括設定 -->
         <div class="bulk-settings">
-          <span>左半分（奇数：1, 3, 5, 7, 9枚目）を一括設定：</span>
-          <select id="bulk-select-left" onchange="bulkSetDestinations('left', this.value)">
-            <option value="-">-- 選択してください --</option>
-            <option value="">（空欄・手書き用）</option>
-            <option value="ハンター">ハンター</option>
-            <option value="カヨー">カヨー</option>
-            <option value="いくわ">いくわ</option>
-            <option value="桑名">桑名</option>
-            <option value="大矢知">大矢知</option>
-            <option value="エコー">エコー</option>
-            <option value="河芸">河芸</option>
-            <option value="菰野">菰野</option>
-            <option value="川越">川越</option>
-            <option value="一番街">一番街</option>
-            <option value="桜花台">桜花台</option>
-            <option value="サンビーム">サンビーム</option>
-          </select>
+          <span>左半分（奇数ラベル：1, 3, 5, 7, 9）を一括設定：</span>
+          <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 6px;">
+            <div style="display: flex; gap: 6px; align-items: center;">
+              <span style="font-size: 12px; min-width: 45px;">行き先:</span>
+              <select id="bulk-select-left" onchange="bulkSetDestinations('left', this.value)" style="flex: 1;">
+                <option value="-">-- 選択してください --</option>
+                <option value="">（空欄・手書き用）</option>
+                <option value="ハンター">ハンター</option>
+                <option value="カヨー">カヨー</option>
+                <option value="いくわ">いくわ</option>
+                <option value="桑名">桑名</option>
+                <option value="大矢知">大矢知</option>
+                <option value="エコー">エコー</option>
+                <option value="河芸">河芸</option>
+                <option value="菰野">菰野</option>
+                <option value="川越">川越</option>
+                <option value="一番街">一番街</option>
+                <option value="桜花台">桜花台</option>
+                <option value="サンビーム">サンビーム</option>
+              </select>
+            </div>
+            <div style="display: flex; gap: 4px; align-items: center;">
+              <span style="font-size: 12px; min-width: 45px;">品目 1:</span>
+              <select id="bulk-item-select-left" onchange="bulkSetItems('left', 1, this.value)" style="flex: 1;">
+                <option value="-">-- 選択してください --</option>
+                <option value="">（空欄）</option>
+                <option value="じゃがいも">じゃがいも</option>
+                <option value="玉ねぎ">玉ねぎ</option>
+                <option value="にんじん">にんじん</option>
+                <option value="ねぎ">ねぎ</option>
+                <option value="キャベツ">キャベツ</option>
+                <option value="にんにく">にんにく</option>
+                <option value="サツマイモ">サツマイモ</option>
+                <option value="かぼちゃ">かぼちゃ</option>
+                <option value="custom">直接入力...</option>
+              </select>
+              <input type="text" id="bulk-item-input-left" placeholder="品目名" style="display:none; width: 75px;" oninput="bulkSetItemsCustom('left', 1, this.value)">
+              <span style="font-size: 11px;">数量:</span>
+              <input type="text" id="bulk-qty-input-left" placeholder="数" style="width: 35px;" oninput="bulkSetQtys('left', 1, this.value)">
+              <select id="bulk-unit-select-left" onchange="bulkSetUnits('left', 1, this.value)" style="width: 45px;">
+                <option value="袋">袋</option>
+                <option value="箱">箱</option>
+                <option value="束">束</option>
+                <option value="個">個</option>
+              </select>
+            </div>
+          </div>
         </div>
 
-        <!-- 右半分一括 -->
+        <!-- 右半分一括設定 -->
         <div class="bulk-settings">
-          <span>右半分（偶数：2, 4, 6, 8, 10枚目）を一括設定：</span>
-          <select id="bulk-select-right" onchange="bulkSetDestinations('right', this.value)">
-            <option value="-">-- 選択してください --</option>
-            <option value="">（空欄・手書き用）</option>
-            <option value="ハンター">ハンター</option>
-            <option value="カヨー">カヨー</option>
-            <option value="いくわ">いくわ</option>
-            <option value="桑名">桑名</option>
-            <option value="大矢知">大矢知</option>
-            <option value="エコー">エコー</option>
-            <option value="河芸">河芸</option>
-            <option value="菰野">菰野</option>
-            <option value="川越">川越</option>
-            <option value="一番街">一番街</option>
-            <option value="桜花台">桜花台</option>
-            <option value="サンビーム">サンビーム</option>
-          </select>
+          <span>右半分（偶数ラベル：2, 4, 6, 8, 10）を一括設定：</span>
+          <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 6px;">
+            <div style="display: flex; gap: 6px; align-items: center;">
+              <span style="font-size: 12px; min-width: 45px;">行き先:</span>
+              <select id="bulk-select-right" onchange="bulkSetDestinations('right', this.value)" style="flex: 1;">
+                <option value="-">-- 選択してください --</option>
+                <option value="">（空欄・手書き用）</option>
+                <option value="ハンター">ハンター</option>
+                <option value="カヨー">カヨー</option>
+                <option value="いくわ">いくわ</option>
+                <option value="桑名">桑名</option>
+                <option value="大矢知">大矢知</option>
+                <option value="エコー">エコー</option>
+                <option value="河芸">河芸</option>
+                <option value="菰野">菰野</option>
+                <option value="川越">川越</option>
+                <option value="一番街">一番街</option>
+                <option value="桜花台">桜花台</option>
+                <option value="サンビーム">サンビーム</option>
+              </select>
+            </div>
+            <div style="display: flex; gap: 4px; align-items: center;">
+              <span style="font-size: 12px; min-width: 45px;">品目 1:</span>
+              <select id="bulk-item-select-right" onchange="bulkSetItems('right', 1, this.value)" style="flex: 1;">
+                <option value="-">-- 選択してください --</option>
+                <option value="">（空欄）</option>
+                <option value="じゃがいも">じゃがいも</option>
+                <option value="玉ねぎ">玉ねぎ</option>
+                <option value="にんじん">にんじん</option>
+                <option value="ねぎ">ねぎ</option>
+                <option value="キャベツ">キャベツ</option>
+                <option value="にんにく">にんにく</option>
+                <option value="サツマイモ">サツマイモ</option>
+                <option value="かぼちゃ">かぼちゃ</option>
+                <option value="custom">直接入力...</option>
+              </select>
+              <input type="text" id="bulk-item-input-right" placeholder="品目名" style="display:none; width: 75px;" oninput="bulkSetItemsCustom('right', 1, this.value)">
+              <span style="font-size: 11px;">数量:</span>
+              <input type="text" id="bulk-qty-input-right" placeholder="数" style="width: 35px;" oninput="bulkSetQtys('right', 1, this.value)">
+              <select id="bulk-unit-select-right" onchange="bulkSetUnits('right', 1, this.value)" style="width: 45px;">
+                <option value="袋">袋</option>
+                <option value="箱">箱</option>
+                <option value="束">束</option>
+                <option value="個">個</option>
+              </select>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- 個別設定グリッド（実際の印刷レイアウト左右に一致するように2列構成） -->
-      <div class="settings-grid">
-        <!-- 左列の設定 (1, 3, 5, 7, 9) -->
-        <div class="settings-column">
-          <div class="column-title">◀ 左半分（奇数ラベル）</div>
-          
-          <!-- ラベル 1 -->
-          <div class="setting-item">
-            <span class="setting-label">ラベル 1:</span>
-            <select id="select-1" onchange="updateDestination(1, this.value)">
-              <option value="">（空欄・手書き用）</option>
-              <option value="ハンター">ハンター</option>
-              <option value="カヨー">カヨー</option>
-              <option value="いくわ">いくわ</option>
-              <option value="桑名">桑名</option>
-              <option value="大矢知">大矢知</option>
-              <option value="エコー">エコー</option>
-              <option value="河芸">河芸</option>
-              <option value="菰野">菰野</option>
-              <option value="川越">川越</option>
-              <option value="一番街">一番街</option>
-              <option value="桜花台">桜花台</option>
-              <option value="サンビーム">サンビーム</option>
-              <option value="custom">直接入力...</option>
-            </select>
-            <input type="text" id="custom-input-1" class="custom-input" placeholder="店舗名を入力" style="display:none;" oninput="updateDestinationCustom(1, this.value)">
-          </div>
-
-          <!-- ラベル 3 -->
-          <div class="setting-item">
-            <span class="setting-label">ラベル 3:</span>
-            <select id="select-3" onchange="updateDestination(3, this.value)">
-              <option value="">（空欄・手書き用）</option>
-              <option value="ハンター">ハンター</option>
-              <option value="カヨー">カヨー</option>
-              <option value="いくわ">いくわ</option>
-              <option value="桑名">桑名</option>
-              <option value="大矢知">大矢知</option>
-              <option value="エコー">エコー</option>
-              <option value="河芸">河芸</option>
-              <option value="菰野">菰野</option>
-              <option value="川越">川越</option>
-              <option value="一番街">一番街</option>
-              <option value="桜花台">桜花台</option>
-              <option value="サンビーム">サンビーム</option>
-              <option value="custom">直接入力...</option>
-            </select>
-            <input type="text" id="custom-input-3" class="custom-input" placeholder="店舗名を入力" style="display:none;" oninput="updateDestinationCustom(3, this.value)">
-          </div>
-
-          <!-- ラベル 5 -->
-          <div class="setting-item">
-            <span class="setting-label">ラベル 5:</span>
-            <select id="select-5" onchange="updateDestination(5, this.value)">
-              <option value="">（空欄・手書き用）</option>
-              <option value="ハンター">ハンター</option>
-              <option value="カヨー">カヨー</option>
-              <option value="いくわ">いくわ</option>
-              <option value="桑名">桑名</option>
-              <option value="大矢知">大矢知</option>
-              <option value="エコー">エコー</option>
-              <option value="河芸">河芸</option>
-              <option value="菰野">菰野</option>
-              <option value="川越">川越</option>
-              <option value="一番街">一番街</option>
-              <option value="桜花台">桜花台</option>
-              <option value="サンビーム">サンビーム</option>
-              <option value="custom">直接入力...</option>
-            </select>
-            <input type="text" id="custom-input-5" class="custom-input" placeholder="店舗名を入力" style="display:none;" oninput="updateDestinationCustom(5, this.value)">
-          </div>
-
-          <!-- ラベル 7 -->
-          <div class="setting-item">
-            <span class="setting-label">ラベル 7:</span>
-            <select id="select-7" onchange="updateDestination(7, this.value)">
-              <option value="">（空欄・手書き用）</option>
-              <option value="ハンター">ハンター</option>
-              <option value="カヨー">カヨー</option>
-              <option value="いくわ">いくわ</option>
-              <option value="桑名">桑名</option>
-              <option value="大矢知">大矢知</option>
-              <option value="エコー">エコー</option>
-              <option value="河芸">河芸</option>
-              <option value="菰野">菰野</option>
-              <option value="川越">川越</option>
-              <option value="一番街">一番街</option>
-              <option value="桜花台">桜花台</option>
-              <option value="サンビーム">サンビーム</option>
-              <option value="custom">直接入力...</option>
-            </select>
-            <input type="text" id="custom-input-7" class="custom-input" placeholder="店舗名を入力" style="display:none;" oninput="updateDestinationCustom(7, this.value)">
-          </div>
-
-          <!-- ラベル 9 -->
-          <div class="setting-item">
-            <span class="setting-label">ラベル 9:</span>
-            <select id="select-9" onchange="updateDestination(9, this.value)">
-              <option value="">（空欄・手書き用）</option>
-              <option value="ハンター">ハンター</option>
-              <option value="カヨー">カヨー</option>
-              <option value="いくわ">いくわ</option>
-              <option value="桑名">桑名</option>
-              <option value="大矢知">大矢知</option>
-              <option value="エコー">エコー</option>
-              <option value="河芸">河芸</option>
-              <option value="菰野">菰野</option>
-              <option value="川越">川越</option>
-              <option value="一番街">一番街</option>
-              <option value="桜花台">桜花台</option>
-              <option value="サンビーム">サンビーム</option>
-              <option value="custom">直接入力...</option>
-            </select>
-            <input type="text" id="custom-input-9" class="custom-input" placeholder="店舗名を入力" style="display:none;" oninput="updateDestinationCustom(9, this.value)">
-          </div>
-        </div>
-
-        <!-- 右列の設定 (2, 4, 6, 8, 10) -->
-        <div class="settings-column">
-          <div class="column-title">▶ 右半分（偶数ラベル）</div>
-
-          <!-- ラベル 2 -->
-          <div class="setting-item">
-            <span class="setting-label">ラベル 2:</span>
-            <select id="select-2" onchange="updateDestination(2, this.value)">
-              <option value="">（空欄・手書き用）</option>
-              <option value="ハンター">ハンター</option>
-              <option value="カヨー">カヨー</option>
-              <option value="いくわ">いくわ</option>
-              <option value="桑名">桑名</option>
-              <option value="大矢知">大矢知</option>
-              <option value="エコー">エコー</option>
-              <option value="河芸">河芸</option>
-              <option value="菰野">菰野</option>
-              <option value="川越">川越</option>
-              <option value="一番街">一番街</option>
-              <option value="桜花台">桜花台</option>
-              <option value="サンビーム">サンビーム</option>
-              <option value="custom">直接入力...</option>
-            </select>
-            <input type="text" id="custom-input-2" class="custom-input" placeholder="店舗名を入力" style="display:none;" oninput="updateDestinationCustom(2, this.value)">
-          </div>
-
-          <!-- ラベル 4 -->
-          <div class="setting-item">
-            <span class="setting-label">ラベル 4:</span>
-            <select id="select-4" onchange="updateDestination(4, this.value)">
-              <option value="">（空欄・手書き用）</option>
-              <option value="ハンター">ハンター</option>
-              <option value="カヨー">カヨー</option>
-              <option value="いくわ">いくわ</option>
-              <option value="桑名">桑名</option>
-              <option value="大矢知">大矢知</option>
-              <option value="エコー">エコー</option>
-              <option value="河芸">河芸</option>
-              <option value="菰野">菰野</option>
-              <option value="川越">川越</option>
-              <option value="一番街">一番街</option>
-              <option value="桜花台">桜花台</option>
-              <option value="サンビーム">サンビーム</option>
-              <option value="custom">直接入力...</option>
-            </select>
-            <input type="text" id="custom-input-4" class="custom-input" placeholder="店舗名を入力" style="display:none;" oninput="updateDestinationCustom(4, this.value)">
-          </div>
-
-          <!-- ラベル 6 -->
-          <div class="setting-item">
-            <span class="setting-label">ラベル 6:</span>
-            <select id="select-6" onchange="updateDestination(6, this.value)">
-              <option value="">（空欄・手書き用）</option>
-              <option value="ハンター">ハンター</option>
-              <option value="カヨー">カヨー</option>
-              <option value="いくわ">いくわ</option>
-              <option value="桑名">桑名</option>
-              <option value="大矢知">大矢知</option>
-              <option value="エコー">エコー</option>
-              <option value="河芸">河芸</option>
-              <option value="菰野">菰野</option>
-              <option value="川越">川越</option>
-              <option value="一番街">一番街</option>
-              <option value="桜花台">桜花台</option>
-              <option value="サンビーム">サンビーム</option>
-              <option value="custom">直接入力...</option>
-            </select>
-            <input type="text" id="custom-input-6" class="custom-input" placeholder="店舗名を入力" style="display:none;" oninput="updateDestinationCustom(6, this.value)">
-          </div>
-
-          <!-- ラベル 8 -->
-          <div class="setting-item">
-            <span class="setting-label">ラベル 8:</span>
-            <select id="select-8" onchange="updateDestination(8, this.value)">
-              <option value="">（空欄・手書き用）</option>
-              <option value="ハンター">ハンター</option>
-              <option value="カヨー">カヨー</option>
-              <option value="いくわ">いくわ</option>
-              <option value="桑名">桑名</option>
-              <option value="大矢知">大矢知</option>
-              <option value="エコー">エコー</option>
-              <option value="河芸">河芸</option>
-              <option value="菰野">菰野</option>
-              <option value="川越">川越</option>
-              <option value="一番街">一番街</option>
-              <option value="桜花台">桜花台</option>
-              <option value="サンビーム">サンビーム</option>
-              <option value="custom">直接入力...</option>
-            </select>
-            <input type="text" id="custom-input-8" class="custom-input" placeholder="店舗名を入力" style="display:none;" oninput="updateDestinationCustom(8, this.value)">
-          </div>
-
-          <!-- ラベル 10 -->
-          <div class="setting-item">
-            <span class="setting-label">ラベル 10:</span>
-            <select id="select-10" onchange="updateDestination(10, this.value)">
-              <option value="">（空欄・手書き用）</option>
-              <option value="ハンター">ハンター</option>
-              <option value="カヨー">カヨー</option>
-              <option value="いくわ">いくわ</option>
-              <option value="桑名">桑名</option>
-              <option value="大矢知">大矢知</option>
-              <option value="エコー">エコー</option>
-              <option value="河芸">河芸</option>
-              <option value="菰野">菰野</option>
-              <option value="川越">川越</option>
-              <option value="一番街">一番街</option>
-              <option value="桜花台">桜花台</option>
-              <option value="サンビーム">サンビーム</option>
-              <option value="custom">直接入力...</option>
-            </select>
-            <input type="text" id="custom-input-10" class="custom-input" placeholder="店舗名を入力" style="display:none;" oninput="updateDestinationCustom(10, this.value)">
-          </div>
-        </div>
+      <!-- 個別設定グリッド -->
+      <div class="settings-grid" id="settings-grid-container">
+        <!-- JSで動的に2カラム個別設定を生成して格納します -->
       </div>
     </div>
 
@@ -786,404 +644,177 @@
   </div>
 
   <!-- ラベル印刷シート（A4縦サイズ） -->
-  <div class="print-sheet">
-    
-    <!-- 10枚のカードを配置 (2列×5段) -->
-    <!-- 1段目左 (カード1) -->
-    <div class="label-card">
-      <div class="label-header">
-        <div class="header-left">おひさま農園</div>
-        <div class="header-arrow">➡</div>
-        <div class="header-right" id="dest-display-1">
-          <span class="dest-line"></span>
-        </div>
-      </div>
-      <div class="label-body">
-        <div class="table-header">
-          <div class="col-item-name">品目</div>
-          <div class="col-item-qty">数量</div>
-        </div>
-        <div class="write-rows">
-          <div class="write-row">
-            <div class="row-item-field"></div>
-            <div class="row-qty-field"><span class="unit-text">袋</span></div>
-          </div>
-          <div class="write-row">
-            <div class="row-item-field"></div>
-            <div class="row-qty-field"><span class="unit-text">袋</span></div>
-          </div>
-          <div class="write-row">
-            <div class="row-item-field"></div>
-            <div class="row-qty-field"><span class="unit-text">袋</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="label-footer">
-        <div class="label-footer-thanks">いつもありがとうございます</div>
-        <div class="label-footer-contact">TEL 059-387-5397</div>
-      </div>
-    </div>
-
-    <!-- 1段目右 (カード2) -->
-    <div class="label-card">
-      <div class="label-header">
-        <div class="header-left">おひさま農園</div>
-        <div class="header-arrow">➡</div>
-        <div class="header-right" id="dest-display-2">
-          <span class="dest-line"></span>
-        </div>
-      </div>
-      <div class="label-body">
-        <div class="table-header">
-          <div class="col-item-name">品目</div>
-          <div class="col-item-qty">数量</div>
-        </div>
-        <div class="write-rows">
-          <div class="write-row">
-            <div class="row-item-field"></div>
-            <div class="row-qty-field"><span class="unit-text">袋</span></div>
-          </div>
-          <div class="write-row">
-            <div class="row-item-field"></div>
-            <div class="row-qty-field"><span class="unit-text">袋</span></div>
-          </div>
-          <div class="write-row">
-            <div class="row-item-field"></div>
-            <div class="row-qty-field"><span class="unit-text">袋</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="label-footer">
-        <div class="label-footer-thanks">いつもありがとうございます</div>
-        <div class="label-footer-contact">TEL 059-387-5397</div>
-      </div>
-    </div>
-
-    <!-- 2段目左 (カード3) -->
-    <div class="label-card">
-      <div class="label-header">
-        <div class="header-left">おひさま農園</div>
-        <div class="header-arrow">➡</div>
-        <div class="header-right" id="dest-display-3">
-          <span class="dest-line"></span>
-        </div>
-      </div>
-      <div class="label-body">
-        <div class="table-header">
-          <div class="col-item-name">品目</div>
-          <div class="col-item-qty">数量</div>
-        </div>
-        <div class="write-rows">
-          <div class="write-row">
-            <div class="row-item-field"></div>
-            <div class="row-qty-field"><span class="unit-text">袋</span></div>
-          </div>
-          <div class="write-row">
-            <div class="row-item-field"></div>
-            <div class="row-qty-field"><span class="unit-text">袋</span></div>
-          </div>
-          <div class="write-row">
-            <div class="row-item-field"></div>
-            <div class="row-qty-field"><span class="unit-text">袋</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="label-footer">
-        <div class="label-footer-thanks">いつもありがとうございます</div>
-        <div class="label-footer-contact">TEL 059-387-5397</div>
-      </div>
-    </div>
-
-    <!-- 2段目右 (カード4) -->
-    <div class="label-card">
-      <div class="label-header">
-        <div class="header-left">おひさま農園</div>
-        <div class="header-arrow">➡</div>
-        <div class="header-right" id="dest-display-4">
-          <span class="dest-line"></span>
-        </div>
-      </div>
-      <div class="label-body">
-        <div class="table-header">
-          <div class="col-item-name">品目</div>
-          <div class="col-item-qty">数量</div>
-        </div>
-        <div class="write-rows">
-          <div class="write-row">
-            <div class="row-item-field"></div>
-            <div class="row-qty-field"><span class="unit-text">袋</span></div>
-          </div>
-          <div class="write-row">
-            <div class="row-item-field"></div>
-            <div class="row-qty-field"><span class="unit-text">袋</span></div>
-          </div>
-          <div class="write-row">
-            <div class="row-item-field"></div>
-            <div class="row-qty-field"><span class="unit-text">袋</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="label-footer">
-        <div class="label-footer-thanks">いつもありがとうございます</div>
-        <div class="label-footer-contact">TEL 059-387-5397</div>
-      </div>
-    </div>
-
-    <!-- 3段目左 (カード5) -->
-    <div class="label-card">
-      <div class="label-header">
-        <div class="header-left">おひさま農園</div>
-        <div class="header-arrow">➡</div>
-        <div class="header-right" id="dest-display-5">
-          <span class="dest-line"></span>
-        </div>
-      </div>
-      <div class="label-body">
-        <div class="table-header">
-          <div class="col-item-name">品目</div>
-          <div class="col-item-qty">数量</div>
-        </div>
-        <div class="write-rows">
-          <div class="write-row">
-            <div class="row-item-field"></div>
-            <div class="row-qty-field"><span class="unit-text">袋</span></div>
-          </div>
-          <div class="write-row">
-            <div class="row-item-field"></div>
-            <div class="row-qty-field"><span class="unit-text">袋</span></div>
-          </div>
-          <div class="write-row">
-            <div class="row-item-field"></div>
-            <div class="row-qty-field"><span class="unit-text">袋</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="label-footer">
-        <div class="label-footer-thanks">いつもありがとうございます</div>
-        <div class="label-footer-contact">TEL 059-387-5397</div>
-      </div>
-    </div>
-
-    <!-- 3段目右 (カード6) -->
-    <div class="label-card">
-      <div class="label-header">
-        <div class="header-left">おひさま農園</div>
-        <div class="header-arrow">➡</div>
-        <div class="header-right" id="dest-display-6">
-          <span class="dest-line"></span>
-        </div>
-      </div>
-      <div class="label-body">
-        <div class="table-header">
-          <div class="col-item-name">品目</div>
-          <div class="col-item-qty">数量</div>
-        </div>
-        <div class="write-rows">
-          <div class="write-row">
-            <div class="row-item-field"></div>
-            <div class="row-qty-field"><span class="unit-text">袋</span></div>
-          </div>
-          <div class="write-row">
-            <div class="row-item-field"></div>
-            <div class="row-qty-field"><span class="unit-text">袋</span></div>
-          </div>
-          <div class="write-row">
-            <div class="row-item-field"></div>
-            <div class="row-qty-field"><span class="unit-text">袋</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="label-footer">
-        <div class="label-footer-thanks">いつもありがとうございます</div>
-        <div class="label-footer-contact">TEL 059-387-5397</div>
-      </div>
-    </div>
-
-    <!-- 4段目左 (カード7) -->
-    <div class="label-card">
-      <div class="label-header">
-        <div class="header-left">おひさま農園</div>
-        <div class="header-arrow">➡</div>
-        <div class="header-right" id="dest-display-7">
-          <span class="dest-line"></span>
-        </div>
-      </div>
-      <div class="label-body">
-        <div class="table-header">
-          <div class="col-item-name">品目</div>
-          <div class="col-item-qty">数量</div>
-        </div>
-        <div class="write-rows">
-          <div class="write-row">
-            <div class="row-item-field"></div>
-            <div class="row-qty-field"><span class="unit-text">袋</span></div>
-          </div>
-          <div class="write-row">
-            <div class="row-item-field"></div>
-            <div class="row-qty-field"><span class="unit-text">袋</span></div>
-          </div>
-          <div class="write-row">
-            <div class="row-item-field"></div>
-            <div class="row-qty-field"><span class="unit-text">袋</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="label-footer">
-        <div class="label-footer-thanks">いつもありがとうございます</div>
-        <div class="label-footer-contact">TEL 059-387-5397</div>
-      </div>
-    </div>
-
-    <!-- 4段目右 (カード8) -->
-    <div class="label-card">
-      <div class="label-header">
-        <div class="header-left">おひさま農園</div>
-        <div class="header-arrow">➡</div>
-        <div class="header-right" id="dest-display-8">
-          <span class="dest-line"></span>
-        </div>
-      </div>
-      <div class="label-body">
-        <div class="table-header">
-          <div class="col-item-name">品目</div>
-          <div class="col-item-qty">数量</div>
-        </div>
-        <div class="write-rows">
-          <div class="write-row">
-            <div class="row-item-field"></div>
-            <div class="row-qty-field"><span class="unit-text">袋</span></div>
-          </div>
-          <div class="write-row">
-            <div class="row-item-field"></div>
-            <div class="row-qty-field"><span class="unit-text">袋</span></div>
-          </div>
-          <div class="write-row">
-            <div class="row-item-field"></div>
-            <div class="row-qty-field"><span class="unit-text">袋</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="label-footer">
-        <div class="label-footer-thanks">いつもありがとうございます</div>
-        <div class="label-footer-contact">TEL 059-387-5397</div>
-      </div>
-    </div>
-
-    <!-- 5段目左 (カード9) -->
-    <div class="label-card">
-      <div class="label-header">
-        <div class="header-left">おひさま農園</div>
-        <div class="header-arrow">➡</div>
-        <div class="header-right" id="dest-display-9">
-          <span class="dest-line"></span>
-        </div>
-      </div>
-      <div class="label-body">
-        <div class="table-header">
-          <div class="col-item-name">品目</div>
-          <div class="col-item-qty">数量</div>
-        </div>
-        <div class="write-rows">
-          <div class="write-row">
-            <div class="row-item-field"></div>
-            <div class="row-qty-field"><span class="unit-text">袋</span></div>
-          </div>
-          <div class="write-row">
-            <div class="row-item-field"></div>
-            <div class="row-qty-field"><span class="unit-text">袋</span></div>
-          </div>
-          <div class="write-row">
-            <div class="row-item-field"></div>
-            <div class="row-qty-field"><span class="unit-text">袋</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="label-footer">
-        <div class="label-footer-thanks">いつもありがとうございます</div>
-        <div class="label-footer-contact">TEL 059-387-5397</div>
-      </div>
-    </div>
-
-    <!-- 5段目右 (カード10) -->
-    <div class="label-card">
-      <div class="label-header">
-        <div class="header-left">おひさま農園</div>
-        <div class="header-arrow">➡</div>
-        <div class="header-right" id="dest-display-10">
-          <span class="dest-line"></span>
-        </div>
-      </div>
-      <div class="label-body">
-        <div class="table-header">
-          <div class="col-item-name">品目</div>
-          <div class="col-item-qty">数量</div>
-        </div>
-        <div class="write-rows">
-          <div class="write-row">
-            <div class="row-item-field"></div>
-            <div class="row-qty-field"><span class="unit-text">袋</span></div>
-          </div>
-          <div class="write-row">
-            <div class="row-item-field"></div>
-            <div class="row-qty-field"><span class="unit-text">袋</span></div>
-          </div>
-          <div class="write-row">
-            <div class="row-item-field"></div>
-            <div class="row-qty-field"><span class="unit-text">袋</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="label-footer">
-        <div class="label-footer-thanks">いつもありがとうございます</div>
-        <div class="label-footer-contact">TEL 059-387-5397</div>
-      </div>
-    </div>
-
+  <div class="print-sheet" id="print-sheet-container">
+    <!-- JSで10枚のカードを動的に生成します -->
   </div>
 
   <!-- ----------------------------------------------------
-       ⚙️ 行き先動的制御用 JavaScript
+       ⚙️ 行き先 ＆ 品目 ＆ 数量 制御用 JavaScript
        ---------------------------------------------------- */ -->
   <script>
+    // 定数定義
+    const totalCards = 10;
+    const destinations = ["ハンター", "カヨー", "いくわ", "桑名", "大矢知", "エコー", "河芸", "菰野", "川越", "一番街", "桜花台", "サンビーム"];
+    const standardItems = ["じゃがいも", "玉ねぎ", "にんじん", "ねぎ", "キャベツ", "にんにく", "サツマイモ", "かぼちゃ"];
+    
     // 感謝の言葉データベース (季節別 ＆ 汎用)
     const messagePool = {
-      general: [
-        "いつもありがとうございます",
-        "丁寧な仕分けに感謝いたします",
-        "本日もよろしくお願いいたします",
-        "仕分け作業ありがとうございます",
-        "お届けありがとうございます",
-        "いつも丁寧な作業をありがとうございます"
-      ],
-      spring: [
-        "春の仕分け作業ありがとうございます",
-        "桜の季節ですね、本日もありがとうございます",
-        "新年度もよろしくお願いいたします",
-        "温かい季節になってきましたね、感謝いたします",
-        "本日も丁寧な出荷をありがとうございます"
-      ],
-      summer: [
-        "暑い中での作業、本当にありがとうございます",
-        "水分補給を忘れずに！本日も感謝です",
-        "暑さに負けず、本日もよろしくお願いいたします",
-        "夏の出荷作業、いつもありがとうございます",
-        "お疲れ様です！本日も感謝いたします"
-      ],
-      autumn: [
-        "秋の仕分け作業、ありがとうございます",
-        "涼しくなってきましたね、本日も感謝です",
-        "実りの秋ですね、本日もよろしくお願いいたします",
-        "過ごしやすい季節ですね、本日も感謝です"
-      ],
-      winter: [
-        "寒い中での作業、本当にありがとうございます",
-        "暖かくしてお過ごしください、感謝いたします",
-        "冷え込む中での仕分け、ありがとうございます",
-        "風邪など引かれませんように、感謝です"
-      ]
+      general: ["いつもありがとうございます", "丁寧な仕分けに感謝いたします", "本日もよろしくお願いいたします", "仕分け作業ありがとうございます", "お届けありがとうございます", "いつも丁寧な作業をありがとうございます"],
+      spring: ["春の仕分け作業ありがとうございます", "桜の季節ですね、本日もありがとうございます", "新年度もよろしくお願いいたします", "温かい季節になってきましたね、感謝いたします", "本日も丁寧な出荷をありがとうございます"],
+      summer: ["暑い中での作業、本当にありがとうございます", "水分補給を忘れずに！本日も感謝です", "暑さに負けず、本日もよろしくお願いいたします", "夏の出荷作業、いつもありがとうございます", "お疲れ様です！本日も感謝いたします"],
+      autumn: ["秋の仕分け作業、ありがとうございます", "涼しくなってきましたね、本日も感謝です", "実りの秋ですね、本日もよろしくお願いいたします", "過ごしやすい季節ですね、本日も感謝です"],
+      winter: ["寒い中での作業、本当にありがとうございます", "暖かくしてお過ごしください、感謝いたします", "冷え込む中での仕分け、ありがとうございます", "風邪など引かれませんように、感謝です"]
     };
 
-    // 月から現在の季節を判定する (3-5月:春、6-8月:夏、9-11月:秋、12-2月:冬)
+    // 初期化処理
+    window.onload = function() {
+      generateHTMLMarkup();
+      setSeasonalMessage('auto');
+    };
+
+    // HTMLマークアップを動的生成（コード量を抑え、かつ完全な同一構造を作る）
+    function generateHTMLMarkup() {
+      const gridContainer = document.getElementById('settings-grid-container');
+      const sheetContainer = document.getElementById('print-sheet-container');
+      
+      let leftColumnHTML = `<div class="settings-column"><div class="column-title">◀ 左半分（奇数ラベル）</div>`;
+      let rightColumnHTML = `<div class="settings-column"><div class="column-title">▶ 右半分（偶数ラベル）</div>`;
+      let sheetHTML = ``;
+
+      for (let i = 1; i <= totalCards; i++) {
+        // --- 設定パネルカードの生成 ---
+        const isLeft = i % 2 !== 0;
+        let cardHTML = `
+          <div class="setting-card">
+            <div style="font-weight: bold; border-bottom: 1px solid #eee; padding-bottom: 4px; margin-bottom: 4px; font-size: 12px; display:flex; justify-content:space-between;">
+              <span>ラベル ${i} (${isLeft ? '左' : '右'})</span>
+            </div>
+            
+            <!-- 行き先設定 -->
+            <div class="setting-row">
+              <span class="setting-label">行き先:</span>
+              <select id="select-${i}" onchange="updateDestination(${i}, this.value)" style="flex: 1;">
+                <option value="">（空欄・手書き用）</option>
+                ${destinations.map(d => `<option value="${d}">${d}</option>`).join('')}
+                <option value="custom">直接入力...</option>
+              </select>
+              <input type="text" id="custom-input-${i}" class="custom-input" placeholder="店舗名" style="display:none; width: 85px;" oninput="updateDestinationCustom(${i}, this.value)">
+            </div>
+            
+            <!-- 品目 1 設定 -->
+            <div class="setting-row">
+              <span class="setting-label">品目 1:</span>
+              <select id="item-select-${i}-1" onchange="updateItem(${i}, 1, this.value)" style="flex: 1;">
+                <option value="">（空欄）</option>
+                ${standardItems.map(item => `<option value="${item}">${item}</option>`).join('')}
+                <option value="custom">直接入力...</option>
+              </select>
+              <input type="text" id="item-input-${i}-1" placeholder="品目名" style="display:none; width: 75px;" oninput="updateItemCustom(${i}, 1, this.value)">
+              <span style="font-size: 11px;">数:</span>
+              <input type="text" id="qty-input-${i}-1" placeholder="数" style="width: 32px;" oninput="updateQty(${i}, 1, this.value)">
+              <select id="unit-select-${i}-1" onchange="updateUnit(${i}, 1, this.value)" style="width: 45px;">
+                <option value="袋">袋</option>
+                <option value="箱">箱</option>
+                <option value="束">束</option>
+                <option value="個">個</option>
+              </select>
+            </div>
+
+            <!-- 詳細設定（2〜3行目用アコーディオン） -->
+            <details style="font-size: 11px; margin-top: 2px;">
+              <summary style="cursor: pointer; color: var(--color-medium-gray);">➕ 2〜3行目の品目を追加</summary>
+              <div style="margin-top: 6px; display: flex; flex-direction: column; gap: 6px; border-top: 1px dashed #eee; padding-top: 6px;">
+                <!-- 品目 2 -->
+                <div class="setting-row">
+                  <span class="setting-label" style="min-width: 40px;">品目 2:</span>
+                  <select id="item-select-${i}-2" onchange="updateItem(${i}, 2, this.value)" style="flex: 1;">
+                    <option value="">（空欄）</option>
+                    ${standardItems.map(item => `<option value="${item}">${item}</option>`).join('')}
+                    <option value="custom">直接入力...</option>
+                  </select>
+                  <input type="text" id="item-input-${i}-2" placeholder="品目名" style="display:none; width: 65px;" oninput="updateItemCustom(${i}, 2, this.value)">
+                  <span style="font-size: 11px;">数:</span>
+                  <input type="text" id="qty-input-${i}-2" placeholder="数" style="width: 28px;" oninput="updateQty(${i}, 2, this.value)">
+                  <select id="unit-select-${i}-2" onchange="updateUnit(${i}, 2, this.value)" style="width: 42px;">
+                    <option value="袋">袋</option>
+                    <option value="箱">箱</option>
+                    <option value="束">束</option>
+                    <option value="個">個</option>
+                  </select>
+                </div>
+                <!-- 品目 3 -->
+                <div class="setting-row">
+                  <span class="setting-label" style="min-width: 40px;">品目 3:</span>
+                  <select id="item-select-${i}-3" onchange="updateItem(${i}, 3, this.value)" style="flex: 1;">
+                    <option value="">（空欄）</option>
+                    ${standardItems.map(item => `<option value="${item}">${item}</option>`).join('')}
+                    <option value="custom">直接入力...</option>
+                  </select>
+                  <input type="text" id="item-input-${i}-3" placeholder="品目名" style="display:none; width: 65px;" oninput="updateItemCustom(${i}, 3, this.value)">
+                  <span style="font-size: 11px;">数:</span>
+                  <input type="text" id="qty-input-${i}-3" placeholder="数" style="width: 28px;" oninput="updateQty(${i}, 3, this.value)">
+                  <select id="unit-select-${i}-3" onchange="updateUnit(${i}, 3, this.value)" style="width: 42px;">
+                    <option value="袋">袋</option>
+                    <option value="箱">箱</option>
+                    <option value="束">束</option>
+                    <option value="個">個</option>
+                  </select>
+                </div>
+              </div>
+            </details>
+          </div>`;
+
+        if (isLeft) {
+          leftColumnHTML += cardHTML;
+        } else {
+          rightColumnHTML += cardHTML;
+        }
+
+        // --- 印刷用ラベルカードHTMLの生成 ---
+        sheetHTML += `
+          <div class="label-card">
+            <div class="label-header">
+              <div class="header-left">おひさま農園</div>
+              <div class="header-arrow">➡</div>
+              <div class="header-right" id="dest-display-${i}">
+                <span class="dest-line"></span>
+              </div>
+            </div>
+            <div class="label-body">
+              <div class="table-header">
+                <div class="col-item-name">品目</div>
+                <div class="col-item-qty">数量</div>
+              </div>
+              <div class="write-rows">
+                <div class="write-row">
+                  <div class="row-item-field" id="item-${i}-1"></div>
+                  <div class="row-qty-field" id="qty-container-${i}-1"><span id="qty-${i}-1"></span><span class="unit-text" id="unit-${i}-1">袋</span></div>
+                </div>
+                <div class="write-row">
+                  <div class="row-item-field" id="item-${i}-2"></div>
+                  <div class="row-qty-field" id="qty-container-${i}-2"><span id="qty-${i}-2"></span><span class="unit-text" id="unit-${i}-2">袋</span></div>
+                </div>
+                <div class="write-row">
+                  <div class="row-item-field" id="item-${i}-3"></div>
+                  <div class="row-qty-field" id="qty-container-${i}-3"><span id="qty-${i}-3"></span><span class="unit-text" id="unit-${i}-3">袋</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="label-footer">
+              <div class="label-footer-thanks">いつもありがとうございます</div>
+              <div class="label-footer-contact">TEL 059-387-5397</div>
+            </div>
+          </div>`;
+      }
+
+      leftColumnHTML += `</div>`;
+      rightColumnHTML += `</div>`;
+      
+      gridContainer.innerHTML = leftColumnHTML + rightColumnHTML;
+      sheetContainer.innerHTML = sheetHTML;
+    }
+
+    // 月から現在の季節を判定する
     function getCurrentSeason() {
       const month = new Date().getMonth() + 1;
       if (month >= 3 && month <= 5) return 'spring';
@@ -1201,17 +832,7 @@
         actualSeason = getCurrentSeason();
       }
       
-      if (actualSeason === 'random') {
-        pool = [
-          ...messagePool.general, 
-          ...messagePool.spring, 
-          ...messagePool.summer, 
-          ...messagePool.autumn, 
-          ...messagePool.winter
-        ];
-      } else {
-        pool = [...messagePool.general, ...messagePool[actualSeason]];
-      }
+      pool = [...messagePool.general, ...messagePool[actualSeason]];
       
       const randomIndex = Math.floor(Math.random() * pool.length);
       const selectedMsg = pool[randomIndex];
@@ -1220,12 +841,11 @@
       updateThanksText(selectedMsg);
     }
 
-    // メッセージの切り替えボタンが押されたとき（常に現在の季節からランダムに切り替え）
     function shuffleMessage() {
       setSeasonalMessage('auto');
     }
 
-    // 個別ラベルの行き先を更新する関数
+    // 行き先表示の更新
     function updateDestination(cardId, value) {
       const displayElement = document.getElementById(`dest-display-${cardId}`);
       const customInput = document.getElementById(`custom-input-${cardId}`);
@@ -1236,16 +856,13 @@
       } else {
         customInput.style.display = "none";
         if (value === "") {
-          // 空欄の時は手書き用アンダーラインを表示
           displayElement.innerHTML = '<span class="dest-line"></span>';
         } else {
-          // 選択された店舗名を表示
           displayElement.innerHTML = `<span class="dest-text">${value}</span>`;
         }
       }
     }
 
-    // 直接入力欄が更新されたときに呼ばれる関数
     function updateDestinationCustom(cardId, value) {
       const displayElement = document.getElementById(`dest-display-${cardId}`);
       if (value.trim() === "") {
@@ -1255,32 +872,149 @@
       }
     }
 
-    // 左右半分ずつ行き先を一括で変更する関数 (target: 'left' = [1,3,5,7,9], 'right' = [2,4,6,8,10])
+    // 品目表示の更新
+    function updateItem(cardId, rowId, value) {
+      const itemInput = document.getElementById(`item-input-${cardId}-${rowId}`);
+      
+      if (value === "custom") {
+        itemInput.style.display = "inline-block";
+        updateItemDisplay(cardId, rowId, itemInput.value);
+      } else {
+        itemInput.style.display = "none";
+        updateItemDisplay(cardId, rowId, value);
+      }
+    }
+
+    function updateItemCustom(cardId, rowId, value) {
+      updateItemDisplay(cardId, rowId, value);
+    }
+
+    function updateItemDisplay(cardId, rowId, value) {
+      const itemEl = document.getElementById(`item-${cardId}-${rowId}`);
+      itemEl.textContent = value;
+      
+      if (value.length > 8) {
+        itemEl.style.fontSize = '2.5mm';
+      } else if (value.length > 5) {
+        itemEl.style.fontSize = '3.2mm';
+      } else {
+        itemEl.style.fontSize = '4.0mm';
+      }
+      
+      checkRowPlaceholder(cardId, rowId);
+    }
+
+    // 数量表示の更新
+    function updateQty(cardId, rowId, value) {
+      const qtyEl = document.getElementById(`qty-${cardId}-${rowId}`);
+      qtyEl.textContent = value;
+      qtyEl.style.fontSize = '3.8mm';
+      qtyEl.style.fontWeight = 'bold';
+      qtyEl.style.marginRight = '0.5mm';
+      
+      checkRowPlaceholder(cardId, rowId);
+    }
+
+    // 単位表示の更新
+    function updateUnit(cardId, rowId, value) {
+      const unitEl = document.getElementById(`unit-${cardId}-${rowId}`);
+      unitEl.textContent = value;
+      unitEl.style.fontSize = '2.2mm';
+      unitEl.style.fontWeight = 'bold';
+      
+      checkRowPlaceholder(cardId, rowId);
+    }
+
+    // 手書き用プレースホルダーの制御
+    function checkRowPlaceholder(cardId, rowId) {
+      const itemEl = document.getElementById(`item-${cardId}-${rowId}`);
+      const qtyEl = document.getElementById(`qty-${cardId}-${rowId}`);
+      const unitEl = document.getElementById(`unit-${cardId}-${rowId}`);
+      
+      const hasItem = itemEl.textContent.trim() !== "";
+      const hasQty = qtyEl.textContent.trim() !== "";
+      
+      if (!hasItem && !hasQty) {
+        unitEl.textContent = "袋";
+        unitEl.style.color = '#666666'; // 薄い手書き用ガイド色
+        qtyEl.textContent = "";
+      } else {
+        unitEl.style.color = '#000000'; // 印字用黒字
+      }
+    }
+
+    // --- 一括設定ロジック ---
     function bulkSetDestinations(target, value) {
       if (value === "-") return;
-      
       const cards = target === 'left' ? [1, 3, 5, 7, 9] : [2, 4, 6, 8, 10];
       
       for (const i of cards) {
         const select = document.getElementById(`select-${i}`);
-        select.value = value;
-        updateDestination(i, value);
+        const customInput = document.getElementById(`custom-input-${i}`);
+        
+        if (value === "custom") {
+          select.value = "custom";
+          customInput.style.display = "inline-block";
+        } else {
+          select.value = value;
+          customInput.style.display = "none";
+          updateDestination(i, value);
+        }
       }
     }
 
-    // 10枚すべての感謝メッセージテキストを一括更新する関数
+    function bulkSetItems(target, rowId, value) {
+      if (value === "-") return;
+      const cards = target === 'left' ? [1, 3, 5, 7, 9] : [2, 4, 6, 8, 10];
+      const bulkInput = document.getElementById(`bulk-item-input-${target}`);
+      
+      if (value === "custom") {
+        bulkInput.style.display = "inline-block";
+        bulkSetItemsDisplay(target, rowId, bulkInput.value);
+      } else {
+        bulkInput.style.display = "none";
+        bulkSetItemsDisplay(target, rowId, value);
+      }
+    }
+
+    function bulkSetItemsCustom(target, rowId, value) {
+      bulkSetItemsDisplay(target, rowId, value);
+    }
+
+    function bulkSetItemsDisplay(target, rowId, value) {
+      const cards = target === 'left' ? [1, 3, 5, 7, 9] : [2, 4, 6, 8, 10];
+      for (const i of cards) {
+        const select = document.getElementById(`item-select-${i}-${rowId}`);
+        const customInput = document.getElementById(`item-input-${i}-${rowId}`);
+        
+        if (document.getElementById(`bulk-item-select-${target}`).value === "custom") {
+          select.value = "custom";
+          customInput.style.display = "inline-block";
+          customInput.value = value;
+        } else {
+          select.value = value;
+          customInput.style.display = "none";
+        }
+        updateItemDisplay(i, rowId, value);
+      }
+    }
+
+    function bulkSetQtys(target, rowId, value) {
+      const cards = target === 'left' ? [1, 3, 5, 7, 9] : [2, 4, 6, 8, 10];
+      for (const i of cards) {
+        const qtyInput = document.getElementById(`qty-input-${i}-${rowId}`);
+        qtyInput.value = value;
+        updateQty(i, rowId, value);
+      }
+    }
+
+    // 10枚すべての感謝メッセージテキストを一括更新する
     function updateThanksText(value) {
       const thanksElements = document.querySelectorAll('.label-footer-thanks');
       thanksElements.forEach(el => {
         el.textContent = value;
       });
     }
-
-    // ページ読み込み時の初期動作
-    window.onload = function() {
-      // 季節メッセージの初期選択
-      setSeasonalMessage('auto');
-    };
   </script>
 
 </body>
