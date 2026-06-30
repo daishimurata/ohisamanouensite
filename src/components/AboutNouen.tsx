@@ -15,37 +15,7 @@ export const AboutNouen = () => {
           </p>
         </div>
 
-        {/* 4つの特徴 */}
-        <div className={styles.featuresGrid}>
-          <div className={styles.featureCard}>
-            <div className={styles.featureIcon}>💰</div>
-            <h3 className={styles.featureTitle}>三重県内トップクラスの高工賃</h3>
-            <p className={styles.featureText}>
-              がんばった成果がしっかり還る仕組みを構築。学校給食用の野菜出荷やオンライン販売など、安定した事業基盤を背景に、地域でも高水準な工賃を実現しています。
-            </p>
-          </div>
-          <div className={styles.featureCard}>
-            <div className={styles.featureIcon}>🌱</div>
-            <h3 className={styles.featureTitle}>心と体に優しい農福連携</h3>
-            <p className={styles.featureText}>
-              太陽の光を浴びながら土に触れ、体を動かす農業は、精神的なリフレッシュや生活リズムの改善に非常に効果的です。自然の力で元気をチャージできます。
-            </p>
-          </div>
-          <div className={styles.featureCard}>
-            <div className={styles.featureIcon}>🧺</div>
-            <h3 className={styles.featureTitle}>選べる作業・マイペース出勤</h3>
-            <p className={styles.featureText}>
-              畑仕事だけでなく、収穫した野菜の選別や袋詰めなどの軽作業（出荷調製作業）といった室内での作業も豊富です。体力や体調に合わせて作業を選べます。
-            </p>
-          </div>
-          <div className={styles.featureCard}>
-            <div className={styles.featureIcon}>🤝</div>
-            <h3 className={styles.featureTitle}>アットホームな安心サポート</h3>
-            <p className={styles.featureText}>
-              農業未経験の方でも安心です。専門スタッフが一人ひとりの障害特性や体調に寄り添い、優しくサポートします。悩みごとも気軽に相談できる環境です。
-            </p>
-          </div>
-        </div>
+
 
         {/* 事業所プロフィールデータ */}
         <div>
