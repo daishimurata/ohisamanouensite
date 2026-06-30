@@ -157,7 +157,7 @@
         gap: 5px;
         margin-top: 5px;
       }
-      .contact-settings-row div select, .contact-settings-row div button {
+      .contact-settings-row div button {
         flex: 1;
       }
     }
@@ -477,7 +477,7 @@
     <ul>
       <li>この画面を印刷すると、A4用紙1枚からちょうど<strong>10枚（横2列×縦5段）</strong>のラベルが印刷されます。用紙印刷の方向は<strong>縦向き</strong>です。</li>
       <li><strong>感謝の言葉自動セット</strong>: 現在の季節（日付）を自動判定し、最適な感謝メッセージ（「暑い中〜」等）を自動的に選びます。「🔄 別の言葉に変える」ボタンでメッセージが変更できます。</li>
-      <li><strong>難読化プライベート公開</strong>: このページは他人に推測されにくい秘密のURLで公開されています。URLを知らない第三者はアクセスできません。</li>
+      <li><strong>難読化プライベート公開</strong>: このページは他人に推測されにくい秘密 of URLで公開されています。URLを知らない第三者はアクセスできません。</li>
       <li><strong>印刷時の設定注意：</strong>
         <ul>
           <li>用紙サイズ：<strong>A4</strong> / 方向：<strong>縦</strong> / 余白：<strong>「なし」</strong> / 倍率：<strong>100%</strong></li>
@@ -492,18 +492,14 @@
       
       <!-- 一括設定コンテナ（左右半分ずつ） -->
       <div class="bulk-settings-container">
-        <!-- 連絡先 ＆ 感謝メッセージ設定バー（一括設定の上段） -->
+        <!-- 感謝メッセージ設定バー（一括設定の上段、連絡先編集は非表示） -->
         <div class="contact-settings-bar">
-          <div class="contact-settings-row" style="margin-bottom: 8px;">
+          <div class="contact-settings-row">
             <span>感謝のメッセージ（フッター左側・薄い文字）：</span>
             <div style="display: flex; gap: 8px; flex: 1; align-items: center;">
               <input type="text" id="thanks-text-input" value="いつもありがとうございます" style="flex: 1;" oninput="updateThanksText(this.value)">
               <button type="button" onclick="shuffleMessage()" style="padding: 6px 12px; font-size: 11px; font-weight: bold; background: var(--color-black); color: white; border: none; border-radius: 4px; cursor: pointer; white-space: nowrap;">🔄 別の言葉に変える</button>
             </div>
-          </div>
-          <div class="contact-settings-row">
-            <span>連絡先テキスト（フッター右側・太い文字）：</span>
-            <input type="text" id="contact-text-input" value="TEL 059-387-5397" style="width: 320px;" oninput="updateContactText(this.value)">
           </div>
         </div>
 
@@ -1270,14 +1266,6 @@
         select.value = value;
         updateDestination(i, value);
       }
-    }
-
-    // 10枚すべての連絡先テキストを一括更新する関数
-    function updateContactText(value) {
-      const footerElements = document.querySelectorAll('.label-footer-contact');
-      footerElements.forEach(el => {
-        el.textContent = value;
-      });
     }
 
     // 10枚すべての感謝メッセージテキストを一括更新する関数
