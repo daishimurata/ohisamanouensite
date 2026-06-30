@@ -194,7 +194,7 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 12px;
-      padding-top: 4px;
+      padding-top: 8px;
     }
 
     @media (max-width: 600px) {
@@ -517,6 +517,9 @@
       .label-card {
         border: 0.2mm dashed var(--color-black);
       }
+      details {
+        display: none !important; /* 印刷時にアコーディオン見出しが絶対に入らないように */
+      }
     }
   </style>
 </head>
@@ -710,10 +713,17 @@
         </div>
       </div>
 
-      <!-- 各ラベルの個別店舗設定（アコーディオンを廃止し、超コンパクトなグリッドで並べる） -->
-      <div class="settings-grid" id="settings-grid-container">
-        <!-- JSで動的に2カラム個別設定を生成して格納します -->
-      </div>
+      <!-- 各ラベルの個別店舗設定（アコーディオンで包み、クリック時のみ編集可能にする） -->
+      <details style="margin-top: 16px; border: 1.5px solid #ccc; border-radius: 8px; background-color: #fafafa;">
+        <summary style="cursor: pointer; padding: 12px; font-size: 14px; font-weight: bold; color: var(--color-dark-gray); user-select: none; display: flex; align-items: center; gap: 6px;">
+          ⚙️ 各ラベルの出荷先店舗を個別に選ぶ（クリックで開閉）
+        </summary>
+        <div style="padding: 0 12px 12px 12px; background-color: #fafafa; border-radius: 0 0 8px 8px;">
+          <div class="settings-grid" id="settings-grid-container">
+            <!-- JSで動的に2カラム個別設定を生成して格納します -->
+          </div>
+        </div>
+      </details>
 
       <!-- 感謝の言葉設定バー（重要度が低いため一番下に配置） -->
       <div class="contact-settings-bar" style="margin-top: 20px; margin-bottom: 0; background-color: #f2f2f2; border-left: 5px solid #999; color: #555;">
@@ -734,7 +744,7 @@
 
   <!-- ラベル印刷シート（A4縦サイズ） -->
   <div class="print-sheet" id="print-sheet-container">
-    <!-- JSで10枚のカードを動的に生成します -->
+    <!-- JSで10枚 of カードを動的に生成します -->
   </div>
 
   <!-- ----------------------------------------------------
@@ -780,7 +790,7 @@
         const isLeft = i % 2 !== 0;
         let cardHTML = `
           <div class="setting-card">
-            <div style="font-weight: bold; border-bottom: 1px solid #eee; padding-bottom: 2px; margin-bottom: 4px; font-size: 11px; display:flex; justify-content:space-between; color: var(--color-medium-gray);">
+            <div style="font-weight: bold; border-bottom: 1px solid #eee; padding-bottom: 4px; margin-bottom: 4px; font-size: 11px; display:flex; justify-content:space-between; color: var(--color-medium-gray);">
               <span>ラベル ${i} (${isLeft ? '左' : '右'})</span>
             </div>
             
