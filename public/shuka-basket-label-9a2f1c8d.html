@@ -4,10 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>出荷仕分け用カゴラベルテンプレート（季節メッセージ付・グループ一括設定・品目数量共通設定） - おひさま農園</title>
-  
-  <!-- html2pdf.js (スマホでのPDF作成・ダウンロード用ライブラリ) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
   <style>
     /* ----------------------------------------------------
        🎨 COLOR PALETTE (白黒・モノクロ印刷に最適化された高コントラスト設定)
@@ -294,35 +290,29 @@
       box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
     }
 
-    .btn:disabled {
-      background-color: #888;
-      cursor: not-allowed;
-      box-shadow: none;
-      transform: none;
-    }
-
     /* ----------------------------------------------------
-       🖨️ 印刷エリア設定 (A4縦サイズ 210mm × 297mm)
+       🖨️ 印刷エリア設定 (余白マージンを考慮し安全なサイズに調整)
        ---------------------------------------------------- */
     .print-sheet {
       background-color: #ffffff;
       width: 210mm;
-      height: 297mm;
+      height: 290mm; /* 297mmから290mmに縮め、プリンターの余白干渉を防ぐ */
       display: grid;
-      grid-template-columns: repeat(2, 105mm);
-      grid-template-rows: repeat(5, 59.4mm);
+      grid-template-columns: repeat(2, 104mm); /* 105mmから104mm */
+      grid-template-rows: repeat(5, 58mm); /* 59.4mmから58mm */
       box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0,0,0,0.05);
       box-sizing: border-box;
       overflow: hidden;
+      margin: 0 auto;
     }
 
     /* ----------------------------------------------------
-       🏷️ 各ラベルのデザイン (横長: 105mm × 59.4mm)
+       🏷️ 各ラベルのデザイン (横長: 104mm × 58mm)
        ---------------------------------------------------- */
     .label-card {
-      width: 105mm;
-      height: 59.4mm;
-      border: 0.2mm dashed var(--color-medium-gray); /* 白黒印刷でも消えないよう、少し濃いめの点線 */
+      width: 104mm;
+      height: 58mm;
+      border: 0.2mm dashed var(--color-medium-gray);
       padding: 3mm 4.5mm 1.5mm 4.5mm;
       box-sizing: border-box;
       display: flex;
@@ -331,20 +321,20 @@
       overflow: hidden;
     }
 
-    /* ラベルヘッダー（店名超巨大化・高さ21mmに拡大） */
+    /* ラベルヘッダー（店名超巨大化） */
     .label-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 0.8mm solid var(--color-black); /* 白黒でくっきり目立たせる太線 */
+      border-bottom: 0.8mm solid var(--color-black);
       padding-bottom: 1.5mm;
       margin-bottom: 1.5mm;
-      height: 21mm; /* 店名巨大化のため高さを大幅拡大 */
+      height: 20mm;
     }
 
     .header-left {
       width: 38%;
-      font-size: 6.0mm; /* おひさま農園も大きく */
+      font-size: 6.0mm;
       font-weight: 900;
       color: var(--color-black);
       letter-spacing: 0.2mm;
@@ -355,7 +345,7 @@
 
     .header-arrow {
       width: 10%;
-      font-size: 6.5mm; /* 矢印も大きく */
+      font-size: 6.5mm;
       font-weight: 900;
       color: var(--color-black);
       text-align: center;
@@ -363,16 +353,16 @@
     }
 
     .header-right {
-      width: 52%; /* 店名表示のスペースを広く確保 */
+      width: 52%;
       display: flex;
       align-items: center;
-      justify-content: flex-end; /* 右寄せ */
+      justify-content: flex-end;
       height: 100%;
     }
 
     /* 手書き用の下線 */
     .dest-line {
-      border-bottom: 0.6mm solid var(--color-black); /* 太くして手書きも目立つように */
+      border-bottom: 0.6mm solid var(--color-black);
       width: 100%;
       height: 7mm;
       display: inline-block;
@@ -380,7 +370,7 @@
 
     /* 選択された行き先がそのまま印刷されるテキスト */
     .dest-text {
-      font-size: 8.5mm; /* 店名を爆発的に極大化 */
+      font-size: 8.5mm;
       font-weight: 900;
       color: var(--color-black);
       border-bottom: 0.3mm solid var(--color-black);
@@ -434,7 +424,7 @@
     .write-row {
       display: flex;
       align-items: center;
-      height: 6.5mm; /* 高さを抑えて店名へスペースを還元 */
+      height: 6.2mm; /* 6.5mmから6.2mmに微調整 */
       border-bottom: 0.2mm dashed var(--color-medium-gray);
       position: relative;
     }
@@ -443,7 +433,7 @@
       border-bottom: 0.4mm solid var(--color-black);
     }
 
-    /* 動的に品目が表示されるエリア（太字でしっかり印刷） */
+    /* 動的に品目が表示されるエリア */
     .row-item-field {
       width: 72%;
       height: 100%;
@@ -479,7 +469,7 @@
     }
 
     /* ----------------------------------------------------
-       🚀 単一品種巨大化モード専用の CSS (1品目のみ入力時の表示最大化)
+       🚀 単一品種巨大化モード専用の CSS
        ---------------------------------------------------- */
     .label-body.single-item-mode .table-header {
       display: none !important;
@@ -491,7 +481,7 @@
     }
 
     .label-body.single-item-mode .write-row:first-child {
-      height: 20mm; /* 記入欄エリア全体を占有 */
+      height: 19mm; /* 20mmから19mmに微調整 */
       border-bottom: 0.4mm solid var(--color-black);
       display: flex;
       align-items: center;
@@ -499,7 +489,7 @@
     }
 
     .label-body.single-item-mode .write-row:first-child .row-item-field {
-      font-size: 8.5mm; /* 品目名をドカンと極大化 */
+      font-size: 8.5mm;
       font-weight: 900;
       width: 70%;
       height: 100%;
@@ -518,23 +508,22 @@
     }
 
     .label-body.single-item-mode .write-row:first-child .row-qty-field span[id^="qty-"] {
-      font-size: 7.5mm; /* 数量を巨大化 */
+      font-size: 7.5mm;
       font-weight: 900;
     }
 
     .label-body.single-item-mode .write-row:first-child .row-qty-field .unit-text {
-      font-size: 3.5mm; /* 単位もクッキリ */
+      font-size: 3.5mm;
       font-weight: 900;
       margin-left: 1mm;
     }
 
-    /* 2行目・3行目を完全に隠す */
     .label-body.single-item-mode .write-row:nth-child(2),
     .label-body.single-item-mode .write-row:nth-child(3) {
       display: none !important;
     }
 
-    /* フッターエリア (左側メッセージ・右側連絡先) */
+    /* フッターエリア */
     .label-footer {
       display: flex;
       justify-content: space-between;
@@ -545,16 +534,14 @@
       width: 100%;
     }
 
-    /* 感謝の言葉（左側・薄く表示） */
     .label-footer-thanks {
       font-size: 2.4mm;
       font-weight: bold;
-      color: var(--color-medium-gray); /* 薄いグレーにして主張しすぎないように */
+      color: var(--color-medium-gray);
       letter-spacing: 0.1mm;
       text-align: left;
     }
 
-    /* 連絡先表示エリア（右側・クッキリ） */
     .label-footer-contact {
       font-size: 2.8mm;
       font-weight: bold;
@@ -564,32 +551,40 @@
     }
 
     /* ----------------------------------------------------
-       🖨️ 印刷用メディアクエリ
+       🖨️ 印刷用メディアクエリ (強制的に余白ゼロにして2ページ化を防ぐ)
        ---------------------------------------------------- */
     @media print {
       @page {
         size: A4 portrait;
-        margin: 0;
+        margin: 0mm; /* ブラウザ標準の印刷余白を完全にリセット */
       }
-      body {
-        background-color: #ffffff;
-        padding: 0;
-        margin: 0;
+      html, body {
+        width: 210mm;
+        height: 297mm;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden; /* スクロールバーによる余計な2ページ化を防止 */
       }
       .print-guide {
-        display: none;
+        display: none !important;
       }
       .print-sheet {
         box-shadow: none;
         position: absolute;
         top: 0;
         left: 0;
+        width: 210mm;
+        height: 297mm;
+        page-break-inside: avoid;
+        break-inside: avoid;
+        padding-top: 3.5mm; /* 少しだけ下に下げて、プリンターの給紙誤差を吸収 */
+        padding-left: 1mm;
       }
       .label-card {
         border: 0.2mm dashed var(--color-black);
       }
       details {
-        display: none !important; /* 印刷時にアコーディオン見出しが絶対に入らないように */
+        display: none !important;
       }
     }
   </style>
@@ -601,10 +596,9 @@
     <h2>出荷仕分け用カゴラベル 印刷ガイド（10枚共通品目＆店舗一括割り当て対応版）</h2>
     <ul>
       <li>この画面を印刷すると、A4用紙1枚からちょうど<strong>10枚（横2列×縦5段）</strong>のラベルが印刷されます。用紙印刷の方向は<strong>縦向き</strong>です。</li>
-      <li><strong>スマホからの印刷方法</strong>: スマホ（LINEやSafari/Chromeなど）では、右下の青い<strong>「📄 PDFを出力する」</strong>ボタンをタップしてください。保存したPDFをスマホの標準「プリント」機能や、コンビニ印刷アプリから非常にきれいに印刷できます。</li>
       <li><strong>印刷時の設定注意：</strong>
         <ul>
-          <li>用紙サイズ：<strong>A4</strong> / 方向：<strong>縦</strong> / 余白：<strong>「なし」</strong> / 倍率：<strong>100%</strong></li>
+          <li>用紙サイズ：<strong>A4</strong> / 方向：<strong>縦</strong> / 余白：<strong>「なし」</strong>（または最小） / 倍率：<strong>100%</strong></li>
           <li>オプション：<strong>「背景のグラフィック」にチェックを入れる</strong></li>
         </ul>
       </li>
@@ -793,16 +787,15 @@
       </div>
     </div>
 
-    <!-- 印刷 & PDF出力ボタン (スマホ用にPDFダウンロードを追加) -->
+    <!-- 印刷ボタン -->
     <div class="btn-container">
-      <button class="btn" onclick="window.print()">🖨️ PCで直接印刷する</button>
-      <button class="btn" id="pdf-btn" onclick="generatePDF()" style="background-color: #2563eb; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);">📄 PDFを出力する（スマホ推奨）</button>
+      <button class="btn" onclick="window.print()">🖨️ 設定したラベルを印刷する</button>
     </div>
   </div>
 
   <!-- ラベル印刷シート（A4縦サイズ） -->
   <div class="print-sheet" id="print-sheet-container">
-    <!-- JSで10枚 of カードを動的に生成します -->
+    <!-- JSで10枚のカードを動的に生成します -->
   </div>
 
   <!-- ----------------------------------------------------
@@ -834,7 +827,7 @@
       setSeasonalMessage('auto');
     };
 
-    // HTMLマークアップを動的生成（コード量を抑え、かつ完全な同一構造を作る）
+    // HTMLマークアップを動的生成
     function generateHTMLMarkup() {
       const gridContainer = document.getElementById('settings-grid-container');
       const sheetContainer = document.getElementById('print-sheet-container');
@@ -844,7 +837,6 @@
       let sheetHTML = ``;
 
       for (let i = 1; i <= totalCards; i++) {
-        // --- 設定パネルカードの生成 (店舗設定のみにして超絶スッキリ) ---
         const isLeft = i % 2 !== 0;
         let cardHTML = `
           <div class="setting-card">
@@ -870,7 +862,6 @@
           rightColumnHTML += cardHTML;
         }
 
-        // --- 印刷用ラベルカードHTMLの生成 ---
         sheetHTML += `
           <div class="label-card">
             <div class="label-header">
@@ -914,7 +905,7 @@
       sheetContainer.innerHTML = sheetHTML;
     }
 
-    // 月から現在の季節を判定する
+    // 季節判定
     function getCurrentSeason() {
       const month = new Date().getMonth() + 1;
       if (month >= 3 && month <= 5) return 'spring';
@@ -923,7 +914,6 @@
       return 'winter';
     }
 
-    // 選択された季節タイプからランダムにメッセージを設定する
     function setSeasonalMessage(seasonType) {
       let pool = [];
       let actualSeason = seasonType;
@@ -945,7 +935,7 @@
       setSeasonalMessage('auto');
     }
 
-    // 行き先表示の更新
+    // 行き先表示
     function updateDestination(cardId, value) {
       const displayElement = document.getElementById(`dest-display-${cardId}`);
       const customInput = document.getElementById(`custom-input-${cardId}`);
@@ -972,28 +962,25 @@
       }
     }
 
-    // 品目名表示の制御（動的サイズ縮小含む）
+    // 品目表示
     function updateItemDisplay(cardId, rowId, value) {
       const itemEl = document.getElementById(`item-${cardId}-${rowId}`);
       itemEl.textContent = value;
       checkRowPlaceholder(cardId, rowId);
     }
 
-    // 数量表示の更新
     function updateQty(cardId, rowId, value) {
       const qtyEl = document.getElementById(`qty-${cardId}-${rowId}`);
       qtyEl.textContent = value;
       checkRowPlaceholder(cardId, rowId);
     }
 
-    // 単位表示の更新
     function updateUnit(cardId, rowId, value) {
       const unitEl = document.getElementById(`unit-${cardId}-${rowId}`);
       unitEl.textContent = value;
       checkRowPlaceholder(cardId, rowId);
     }
 
-    // 手書き用プレースホルダーの制御
     function checkRowPlaceholder(cardId, rowId) {
       const itemEl = document.getElementById(`item-${cardId}-${rowId}`);
       const qtyEl = document.getElementById(`qty-${cardId}-${rowId}`);
@@ -1004,17 +991,16 @@
       
       if (!hasItem && !hasQty) {
         unitEl.textContent = "袋";
-        unitEl.style.color = '#666666'; // 薄い手書き用ガイド色
+        unitEl.style.color = '#666666';
         qtyEl.textContent = "";
       } else {
-        unitEl.style.color = '#000000'; // 印字用黒字
+        unitEl.style.color = '#000000';
       }
 
-      // レイアウトの自動判定・巨大化切り替え
       adjustLayoutMode(cardId);
     }
 
-    // --- レイアウト自動調整ロジック (1品目のみ入力時の表示巨大化) ---
+    // レイアウト調整 (1品目巨大化モード)
     function adjustLayoutMode(cardId) {
       const labelCard = document.getElementById(`dest-display-${cardId}`).closest('.label-card');
       const labelBody = labelCard.querySelector('.label-body');
@@ -1030,7 +1016,6 @@
       const hasRow2 = item2 !== "" || qty2 !== "";
       const hasRow3 = item3 !== "" || qty3 !== "";
 
-      // 1行目のみに入力があり、かつ2〜3行目が完全に空の場合に「巨大表示」にする
       if (hasRow1 && !hasRow2 && !hasRow3) {
         labelBody.classList.add('single-item-mode');
         
@@ -1038,7 +1023,6 @@
         const qtyEl = document.getElementById(`qty-${cardId}-1`);
         const val = itemEl.textContent;
         
-        // 品目名の文字数に応じてフォントサイズを動的に最大化
         if (val.length > 8) {
           itemEl.style.fontSize = '5.0mm';
         } else if (val.length > 5) {
@@ -1051,7 +1035,6 @@
       } else {
         labelBody.classList.remove('single-item-mode');
         
-        // 従来の均等3行モードのスタイル・サイズに再調整
         for (let rowId = 1; rowId <= 3; rowId++) {
           const itemEl = document.getElementById(`item-${cardId}-${rowId}`);
           const qtyEl = document.getElementById(`qty-${cardId}-${rowId}`);
@@ -1070,7 +1053,7 @@
       }
     }
 
-    // --- 全ラベル共通 品目・数量 設定ロジック (動的行出現対応) ---
+    // 同期・一括処理
     function handleGlobalItemChange(rowId, value) {
       const customInput = document.getElementById(`global-item-input-${rowId}`);
       const itemValue = value === "custom" ? customInput.value : value;
@@ -1090,26 +1073,26 @@
       checkGlobalItemRowsVisibility();
     }
 
-    // 同期処理
     function syncGlobalItemToAllCards(rowId, itemName) {
       for (let i = 1; i <= totalCards; i++) {
         updateItemDisplay(i, rowId, itemName);
       }
     }
 
+    // 数量同期
     function handleGlobalQtyInput(rowId, value) {
       for (let i = 1; i <= totalCards; i++) {
         updateQty(i, rowId, value);
       }
     }
 
+    // 単位同期
     function handleGlobalUnitChange(rowId, value) {
       for (let i = 1; i <= totalCards; i++) {
         updateUnit(i, rowId, value);
       }
     }
 
-    // 動的に2行目、3行目を表示制御するロジック
     function checkGlobalItemRowsVisibility() {
       const select1 = document.getElementById('global-item-select-1').value;
       const custom1 = document.getElementById('global-item-input-1').value.trim();
@@ -1122,7 +1105,6 @@
 
       const row3 = document.getElementById('global-item-row-3');
 
-      // 1行目に品目がある場合は2行目を表示
       if (hasItem1) {
         row2.style.display = "flex";
       } else {
@@ -1130,7 +1112,6 @@
         clearGlobalRow(2);
       }
 
-      // 2行目に品目がある場合は3行目を表示
       if (hasItem1 && hasItem2) {
         row3.style.display = "flex";
       } else {
@@ -1139,7 +1120,6 @@
       }
     }
 
-    // 指定行の入力状態と表示をクリア
     function clearGlobalRow(rowId) {
       document.getElementById(`global-item-select-${rowId}`).value = "";
       document.getElementById(`global-item-input-${rowId}`).value = "";
@@ -1154,7 +1134,6 @@
       }
     }
 
-    // --- 左右半分ずつの行き先一括設定 ---
     function bulkSetDestinations(target, value) {
       if (value === "-") return;
       const cards = target === 'left' ? [1, 3, 5, 7, 9] : [2, 4, 6, 8, 10];
@@ -1168,7 +1147,6 @@
       else if (value === "group-all") { useGroup = true; targetList = groupAll; }
 
       if (useGroup) {
-        // グループ一括割り当て：指定のカラムに上から順に店舗を設定
         for (let idx = 0; idx < cards.length; idx++) {
           const cardId = cards[idx];
           const select = document.getElementById(`select-${cardId}`);
@@ -1186,7 +1164,6 @@
           }
         }
       } else {
-        // 単一店舗の割り当て
         for (const i of cards) {
           const select = document.getElementById(`select-${i}`);
           const customInput = document.getElementById(`custom-input-${i}`);
@@ -1203,42 +1180,10 @@
       }
     }
 
-    // 10枚すべての感謝メッセージテキストを一括更新する
     function updateThanksText(value) {
       const thanksElements = document.querySelectorAll('.label-footer-thanks');
       thanksElements.forEach(el => {
         el.textContent = value;
-      });
-    }
-
-    // --- スマホ用：html2pdf.js を使用したPDF出力 & 保存ロジック ---
-    function generatePDF() {
-      const element = document.getElementById('print-sheet-container');
-      
-      const opt = {
-        margin:       0,
-        filename:     'おひさま農園_出荷カゴラベル.pdf',
-        image:        { type: 'jpeg', quality: 1.0 },
-        html2canvas:  { 
-          scale: 4, // 印刷に耐えうる超高解像度でキャプチャ
-          useCORS: true,
-          logging: false
-        },
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-      };
-
-      const pdfBtn = document.getElementById('pdf-btn');
-      const originalText = pdfBtn.innerHTML;
-      pdfBtn.innerHTML = "⏳ PDFを作成中...";
-      pdfBtn.disabled = true;
-
-      html2pdf().set(opt).from(element).save().then(() => {
-        pdfBtn.innerHTML = originalText;
-        pdfBtn.disabled = false;
-      }).catch(err => {
-        alert("PDFの作成に失敗しました: " + err);
-        pdfBtn.innerHTML = originalText;
-        pdfBtn.disabled = false;
       });
     }
   </script>
