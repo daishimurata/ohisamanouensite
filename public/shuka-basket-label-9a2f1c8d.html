@@ -531,7 +531,7 @@
     <ul>
       <li>この画面を印刷すると、A4用紙1枚からちょうど<strong>10枚（横2列×縦5段）</strong>のラベルが印刷されます。用紙印刷の方向は<strong>縦向き</strong>です。</li>
       <li><strong>動的な品目入力</strong>: 品目1を入力すると品目2の行が、品目2を入力すると品目3の行が自動的に出現します。設定内容は全10枚に一斉に印字されます。</li>
-      <li><strong>グループ一括割り当て</strong>: 「大型店だけに出荷」「中型店だけに出荷」「全店舗（1〜10店舗目まで）に自動割り当て」などがボタン一つで設定できます。</li>
+      <li><strong>左右一括割り当て</strong>: 左半分・右半分のブロックに対して、店舗グループ（大型/中型/小型/全店）をワンクリックで一括セットできます。</li>
       <li><strong>難読化プライベート公開</strong>: このページは他人に推測されにくい秘密のURLで公開されています。URLを知らない第三者はアクセスできません。</li>
       <li><strong>印刷時の設定注意：</strong>
         <ul>
@@ -645,21 +645,8 @@
 
       <div class="sub-section-title">🏢 出荷先店舗の設定</div>
 
-      <!-- 一括設定コンテナ -->
+      <!-- 一括設定コンテナ (左右半分ずつの割り当てのみ) -->
       <div class="bulk-settings-container">
-        <!-- 全体グループ一括割り当て（上段にドカンと配置） -->
-        <div class="bulk-settings" style="grid-column: span 2;">
-          <span>用紙全体（1〜10枚目）へのグループ一括割り当て（店舗規模別）：</span>
-          <select id="bulk-select-all-groups" onchange="bulkSetAllGroups(this.value)" style="padding: 8px 12px; font-weight: bold; border: 1.5px solid var(--color-black);">
-            <option value="-">-- 選択してください --</option>
-            <option value="large">大型店出荷 (1〜4枚目に ハンター / カヨー / いくわ / 桑名 を自動割り当て)</option>
-            <option value="medium">中型店出荷 (1〜5枚目に 大矢知 / エコー / 河芸 / 菰野 / 川越 を自動割り当て)</option>
-            <option value="small">小型店出荷 (1〜3枚目に 一番街 / 桜花台 / サンビーム を自動割り当て)</option>
-            <option value="all">全店舗出荷 (1〜10枚目に 主要10店舗 を上から順番に自動割り当て)</option>
-            <option value="clear">（すべての行き先をクリアして空欄にする）</option>
-          </select>
-        </div>
-
         <!-- 左半分一括設定 -->
         <div class="bulk-settings">
           <span>左半分（奇数ラベル：1, 3, 5, 7, 9）の行き先一括設定：</span>
@@ -1001,6 +988,7 @@
       }
     }
 
+    // 共通単位同期
     function handleGlobalUnitChange(rowId, value) {
       for (let i = 1; i <= totalCards; i++) {
         updateUnit(i, rowId, value);
@@ -1050,43 +1038,6 @@
         updateQty(i, rowId, "");
         updateUnit(i, rowId, "袋");
       }
-    }
-
-    // --- 全用紙一括グループ割り当て ---
-    function bulkSetAllGroups(groupType) {
-      if (groupType === "-") return;
-
-      let targetList = [];
-      if (groupType === 'large') targetList = groupLarge;
-      else if (groupType === 'medium') targetList = groupMedium;
-      else if (groupType === 'small') targetList = groupSmall;
-      else if (groupType === 'all') targetList = groupAll;
-
-      // 全カードを一旦クリア
-      for (let i = 1; i <= totalCards; i++) {
-        const select = document.getElementById(`select-${i}`);
-        const customInput = document.getElementById(`custom-input-${i}`);
-        select.value = "";
-        customInput.style.display = "none";
-        customInput.value = "";
-        updateDestination(i, "");
-      }
-
-      if (groupType === 'clear') return;
-
-      // 1番から順に割り当て
-      for (let idx = 0; idx < targetList.length; idx++) {
-        const cardNum = idx + 1;
-        if (cardNum > totalCards) break;
-        
-        const select = document.getElementById(`select-${cardNum}`);
-        const shopName = targetList[idx];
-        
-        select.value = shopName;
-        updateDestination(cardNum, shopName);
-      }
-      
-      document.getElementById('bulk-select-all-groups').value = "-";
     }
 
     // --- 左右半分ずつの行き先一括設定 ---
