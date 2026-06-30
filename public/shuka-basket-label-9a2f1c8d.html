@@ -291,15 +291,15 @@
     }
 
     /* ----------------------------------------------------
-       🖨️ 印刷エリア設定 (用紙一杯にラベルを展開する設計に再調整)
+       🖨️ 印刷エリア設定 (iPhone AirPrintの物理余白限界ギリギリに最大化させた新寸法)
        ---------------------------------------------------- */
     .print-sheet {
       background-color: #ffffff;
-      width: 210mm;
-      height: 297mm; /* 用紙いっぱいの縦幅 */
+      width: 197mm; /* 210mmから左右の強制余白約6.5mmずつを差し引いた限界幅 */
+      height: 282.5mm; /* 297mmから上下の強制余白約7mmずつを差し引いた限界高 */
       display: grid;
-      grid-template-columns: repeat(2, 105mm); /* 左右余白なしで用紙一杯に展開 */
-      grid-template-rows: repeat(5, 59.4mm); /* 59.4mm × 5 = 297mm で用紙一杯に展開 */
+      grid-template-columns: repeat(2, 98.5mm); /* 各98.5mm */
+      grid-template-rows: repeat(5, 56.5mm); /* 5段 × 各56.5mm = 282.5mm */
       box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0,0,0,0.05);
       box-sizing: border-box;
       overflow: hidden;
@@ -307,13 +307,13 @@
     }
 
     /* ----------------------------------------------------
-       🏷️ 各ラベルのデザイン (横長: 105mm × 59.4mm)
+       🏷️ 各ラベルのデザイン (横長: 98.5mm × 56.5mm)
        ---------------------------------------------------- */
     .label-card {
-      width: 105mm;
-      height: 59.4mm;
+      width: 98.5mm;
+      height: 56.5mm;
       border: 0.2mm dashed var(--color-medium-gray);
-      padding: 3.0mm 4.5mm 1.5mm 4.5mm;
+      padding: 2.5mm 4.0mm 1.5mm 4.0mm;
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
@@ -327,14 +327,14 @@
       align-items: center;
       justify-content: space-between;
       border-bottom: 0.8mm solid var(--color-black);
-      padding-bottom: 1.5mm;
-      margin-bottom: 1.5mm;
-      height: 21mm; /* 元の21mmに戻し店名を最大化 */
+      padding-bottom: 1.2mm;
+      margin-bottom: 1.2mm;
+      height: 20mm;
     }
 
     .header-left {
       width: 38%;
-      font-size: 6.0mm;
+      font-size: 5.6mm;
       font-weight: 900;
       color: var(--color-black);
       letter-spacing: 0.2mm;
@@ -345,7 +345,7 @@
 
     .header-arrow {
       width: 10%;
-      font-size: 6.5mm;
+      font-size: 6.0mm;
       font-weight: 900;
       color: var(--color-black);
       text-align: center;
@@ -364,13 +364,13 @@
     .dest-line {
       border-bottom: 0.6mm solid var(--color-black);
       width: 100%;
-      height: 7mm;
+      height: 6.5mm;
       display: inline-block;
     }
 
     /* 選択された行き先がそのまま印刷されるテキスト */
     .dest-text {
-      font-size: 8.5mm; /* 元の8.5mmに戻し店名を爆発的に巨大化 */
+      font-size: 8.0mm;
       font-weight: 900;
       color: var(--color-black);
       border-bottom: 0.3mm solid var(--color-black);
@@ -393,7 +393,7 @@
 
     .table-header {
       display: flex;
-      font-size: 1.8mm;
+      font-size: 1.7mm;
       font-weight: 900;
       color: var(--color-black);
       border-bottom: 0.4mm solid var(--color-black);
@@ -424,7 +424,7 @@
     .write-row {
       display: flex;
       align-items: center;
-      height: 6.5mm; /* 6.5mmに戻して大きく */
+      height: 6.1mm;
       border-bottom: 0.2mm dashed var(--color-medium-gray);
       position: relative;
     }
@@ -439,7 +439,7 @@
       height: 100%;
       display: flex;
       align-items: center;
-      font-size: 4.0mm; /* 4.0mmに戻す */
+      font-size: 3.8mm;
       font-weight: bold;
       color: var(--color-black);
       padding-left: 1mm;
@@ -457,13 +457,13 @@
       align-items: flex-end;
       padding-right: 1mm;
       padding-bottom: 0.3mm;
-      font-size: 2.0mm;
+      font-size: 1.9mm;
       color: var(--color-medium-gray);
     }
 
     .unit-text {
       margin-left: 1mm;
-      font-size: 1.8mm;
+      font-size: 1.7mm;
       color: var(--color-black);
       font-weight: bold;
     }
@@ -481,7 +481,7 @@
     }
 
     .label-body.single-item-mode .write-row:first-child {
-      height: 20mm; /* 20.0mmに戻す */
+      height: 19.0mm;
       border-bottom: 0.4mm solid var(--color-black);
       display: flex;
       align-items: center;
@@ -489,7 +489,7 @@
     }
 
     .label-body.single-item-mode .write-row:first-child .row-item-field {
-      font-size: 8.5mm; /* 8.5mmに戻す */
+      font-size: 8.0mm;
       font-weight: 900;
       width: 70%;
       height: 100%;
@@ -498,7 +498,7 @@
     }
 
     .label-body.single-item-mode .write-row:first-child .row-qty-field {
-      font-size: 3.5mm;
+      font-size: 3.2mm;
       width: 30%;
       height: 100%;
       display: flex;
@@ -508,12 +508,12 @@
     }
 
     .label-body.single-item-mode .write-row:first-child .row-qty-field span[id^="qty-"] {
-      font-size: 7.5mm; /* 7.5mmに戻す */
+      font-size: 7.0mm;
       font-weight: 900;
     }
 
     .label-body.single-item-mode .write-row:first-child .row-qty-field .unit-text {
-      font-size: 3.5mm; /* 3.5mmに戻す */
+      font-size: 3.2mm;
       font-weight: 900;
       margin-left: 1mm;
     }
@@ -529,13 +529,13 @@
       justify-content: space-between;
       align-items: flex-end;
       margin-top: 1.5mm;
-      height: 4.5mm;
+      height: 4.2mm;
       line-height: 1;
       width: 100%;
     }
 
     .label-footer-thanks {
-      font-size: 2.4mm;
+      font-size: 2.3mm;
       font-weight: bold;
       color: var(--color-medium-gray);
       letter-spacing: 0.1mm;
@@ -543,7 +543,7 @@
     }
 
     .label-footer-contact {
-      font-size: 2.8mm;
+      font-size: 2.6mm;
       font-weight: bold;
       color: var(--color-black);
       letter-spacing: 0.15mm;
@@ -551,22 +551,22 @@
     }
 
     /* ----------------------------------------------------
-       🖨️ 印刷用メディアクエリ (用紙一杯に表示 & 2ページ目を完全に非表示化)
+       🖨️ 印刷用メディアクエリ (iPhone等倍で用紙一杯＆2ページ目完全阻止)
        ---------------------------------------------------- */
     @media print {
       @page {
         size: A4 portrait;
-        margin: 0mm; /* ブラウザ標準の印刷余白を完全にリセット */
+        margin: 0mm; /* ブラウザ余白を強制リセット */
       }
       html, body {
         width: 210mm;
         height: 297mm;
         margin: 0 !important;
         padding: 0 !important;
-        overflow: hidden !important; /* スクロールや枠外へのはみ出しを完全抑止し、2ページ目の発生を防止 */
+        overflow: hidden !important; /* はみ出しによる改ページを完全抑止 */
       }
       
-      /* 設定ガイドやボタンなど、ラベルコンテナ以外のすべてのHTML要素を印刷対象外にする */
+      /* ラベルシート以外の要素を完全に非表示 */
       body > :not(#print-sheet-container) {
         display: none !important;
       }
@@ -574,19 +574,19 @@
       .print-sheet {
         box-shadow: none;
         position: absolute;
-        top: 0mm; /* 上マージンを完全ゼロにして上端ぴったりから配置 */
-        left: 0mm; /* 左右マージンもゼロにして用紙一杯に広げる */
-        width: 210mm; /* A4幅ぴったり */
-        height: 297mm; /* A4高さぴったり */
+        top: 0mm; /* ブラウザ強制余白があるためtop:0で上端から展開 */
+        left: 0mm; /* 左右もゼロベースで自動余白に委ねる */
+        width: 197mm; /* 印刷可能限界の横幅 */
+        height: 282.5mm; /* 印刷可能限界の縦幅 */
         display: grid;
-        grid-template-columns: repeat(2, 105mm);
-        grid-template-rows: repeat(5, 59.4mm);
+        grid-template-columns: repeat(2, 98.5mm);
+        grid-template-rows: repeat(5, 56.5mm);
         page-break-after: avoid;
         break-after: avoid;
         page-break-inside: avoid;
         break-inside: avoid;
         padding: 0;
-        margin: 0 !important;
+        margin: 0 auto !important; /* センタリング */
       }
       .label-card {
         border: 0.2mm dashed var(--color-black);
@@ -1023,15 +1023,16 @@
         const qtyEl = document.getElementById(`qty-${cardId}-1`);
         const val = itemEl.textContent;
         
+        // 新しい 98.5mm x 56.5mm サイズに最適化された極大フォントサイズ指定（はみ出し防止）
         if (val.length > 8) {
-          itemEl.style.fontSize = '5.0mm';
+          itemEl.style.fontSize = '4.8mm';
         } else if (val.length > 5) {
-          itemEl.style.fontSize = '6.8mm';
+          itemEl.style.fontSize = '6.4mm';
         } else {
-          itemEl.style.fontSize = '8.5mm';
+          itemEl.style.fontSize = '8.0mm';
         }
 
-        qtyEl.style.fontSize = '7.5mm';
+        qtyEl.style.fontSize = '7.0mm';
       } else {
         labelBody.classList.remove('single-item-mode');
         
@@ -1041,14 +1042,14 @@
           const val = itemEl.textContent;
           
           if (val.length > 8) {
-            itemEl.style.fontSize = '2.5mm';
+            itemEl.style.fontSize = '2.4mm';
           } else if (val.length > 5) {
-            itemEl.style.fontSize = '3.2mm';
+            itemEl.style.fontSize = '3.0mm';
           } else {
-            itemEl.style.fontSize = '4.0mm';
+            itemEl.style.fontSize = '3.8mm';
           }
 
-          qtyEl.style.fontSize = '3.8mm';
+          qtyEl.style.fontSize = '3.6mm';
         }
       }
     }
