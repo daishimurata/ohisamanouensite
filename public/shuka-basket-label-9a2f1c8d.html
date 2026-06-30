@@ -586,9 +586,8 @@
     <h2>出荷仕分け用カゴラベル 印刷ガイド（10枚共通品目＆店舗一括割り当て対応版）</h2>
     <ul>
       <li>この画面を印刷すると、A4用紙1枚からちょうど<strong>10枚（横2列×縦5段）</strong>のラベルが印刷されます。用紙印刷の方向は<strong>縦向き</strong>です。</li>
-      <li><strong>動的な品目入力</strong>: 品目1を入力すると品目2の行が、品目2を入力すると品目3 of 行が自動的に出現します。設定内容は全10枚に一斉に印字されます。</li>
+      <li><strong>動的な品目入力</strong>: 品目1を入力すると品目2の行が、品目2を入力すると品目3の行が自動的に出現します。設定内容は全10枚に一斉に印字されます。</li>
       <li><strong>左右一括割り当て</strong>: 左半分・右半分のブロックに対して、店舗グループ（大型/中型/小型/全店）をワンクリックで一括セットできます。</li>
-      <li><strong>難読化プライベート公開</strong>: このページは他人に推測されにくい秘密のURLで公開されています。URLを知らない第三者はアクセスできません。</li>
       <li><strong>印刷時の設定注意：</strong>
         <ul>
           <li>用紙サイズ：<strong>A4</strong> / 方向：<strong>縦</strong> / 余白：<strong>「なし」</strong> / 倍率：<strong>100%</strong></li>
@@ -787,7 +786,7 @@
 
   <!-- ラベル印刷シート（A4縦サイズ） -->
   <div class="print-sheet" id="print-sheet-container">
-    <!-- JSで10枚のカードを動的に生成します -->
+    <!-- JSで10枚 of カードを動的に生成します -->
   </div>
 
   <!-- ----------------------------------------------------
@@ -1081,14 +1080,12 @@
       }
     }
 
-    // 数量の同期
     function handleGlobalQtyInput(rowId, value) {
       for (let i = 1; i <= totalCards; i++) {
         updateQty(i, rowId, value);
       }
     }
 
-    // 単位の同期
     function handleGlobalUnitChange(rowId, value) {
       for (let i = 1; i <= totalCards; i++) {
         updateUnit(i, rowId, value);
