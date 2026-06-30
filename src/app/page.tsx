@@ -1,5 +1,6 @@
 import { Header } from '@/components/Header';
 import { Hero } from '@/components/Hero';
+import { AboutNouen } from '@/components/AboutNouen';
 import { Services } from '@/components/Services';
 import { NewsList } from '@/components/NewsList';
 import { NouenInstagram } from '@/components/NouenInstagram';
@@ -35,6 +36,7 @@ export default function Home() {
             </div>
           </div>
         </section>
+        <AboutNouen />
         <NewsList />
         <Services />
         <NouenInstagram />

@@ -36,9 +36,26 @@ export const Company = () => {
               <th>所在地</th>
               <td>
                 【本社・おひさま農園】<br />
-                〒510-0323 三重県鈴鹿市伊船町2756-1<br /><br />
-                【おひさま企画】<br />
-                〒510-0242 三重県鈴鹿市白子本町15-5
+                〒510-0323 三重県鈴鹿市伊船町2756-1<br />
+                <a 
+                  href="https://www.google.com/maps/search/?api=1&query=三重県鈴鹿市伊船町2756-1+おひさま農園" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  style={{ color: '#0066cc', textDecoration: 'underline', fontSize: '0.9em', display: 'inline-block', marginTop: '4px' }}
+                >
+                  [Googleマップで見る]
+                </a>
+                <br /><br />
+                【おひさま企画】（白子駅より徒歩3分）<br />
+                〒510-0242 三重県鈴鹿市白子本町15-5<br />
+                <a 
+                  href="https://www.google.com/maps/search/?api=1&query=三重県鈴鹿市白子本町15-5+おひさま企画" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  style={{ color: '#0066cc', textDecoration: 'underline', fontSize: '0.9em', display: 'inline-block', marginTop: '4px' }}
+                >
+                  [Googleマップで見る]
+                </a>
               </td>
             </tr>
             <tr>
@@ -53,7 +70,7 @@ export const Company = () => {
               <th>事業内容</th>
               <td>
                 就労継続支援B型事業所 おひさま農園（農業・福祉事業）<br />
-                就労継続支援B型事業所 おひさま企画（Web制作・ハンドメイド・EC運営等）
+                就労継続支援B型事業所 おひさま企画（eBay輸出・Web制作・ハンドメイド・EC運営等）
               </td>
             </tr>
             <tr>

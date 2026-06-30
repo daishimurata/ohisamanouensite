@@ -1,0 +1,156 @@
+.aboutSection {
+  padding: 80px 0;
+  background-color: #fff;
+}
+
+.aboutContainer {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.conceptBlock {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.conceptTitle {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 20px;
+  font-weight: bold;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 12px;
+}
+
+.conceptTitle::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #ff9800, #ffc107);
+  border-radius: 2px;
+}
+
+.conceptText {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #555;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* 特徴カードグリッド */
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  margin-bottom: 70px;
+}
+
+.featureCard {
+  background: #fdfdfd;
+  border: 1px solid #f0f0f0;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.featureCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+  border-color: #ffe0b2;
+}
+
+.featureIcon {
+  font-size: 32px;
+  margin-bottom: 15px;
+}
+
+.featureTitle {
+  font-size: 18px;
+  color: #ff9800;
+  font-weight: bold;
+  margin: 0 0 12px 0;
+}
+
+.featureText {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: #666;
+  margin: 0;
+}
+
+/* プロフィール詳細テーブル */
+.profileTitle {
+  text-align: center;
+  font-size: 22px;
+  color: #333;
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+
+.profileTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.01);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.profileTable th, .profileTable td {
+  padding: 18px 24px;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 14.5px;
+}
+
+.profileTable th {
+  background-color: #fff8e1;
+  color: #e65100;
+  font-weight: bold;
+  width: 25%;
+  text-align: left;
+}
+
+.profileTable td {
+  background-color: #fff;
+  color: #444;
+  width: 75%;
+  line-height: 1.6;
+}
+
+.profileTable tr:last-child th, .profileTable tr:last-child td {
+  border-bottom: none;
+}
+
+@media (max-width: 768px) {
+  .aboutSection {
+    padding: 60px 0;
+  }
+  .featuresGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .profileTable th, .profileTable td {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .profileTable th {
+    border-bottom: none;
+    padding-bottom: 6px;
+    background-color: #fffde7;
+  }
+  .profileTable td {
+    padding-top: 4px;
+    padding-bottom: 18px;
+  }
+}
