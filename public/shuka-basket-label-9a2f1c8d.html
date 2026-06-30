@@ -463,6 +463,62 @@
       font-weight: bold;
     }
 
+    /* ----------------------------------------------------
+       🚀 単一品種巨大化モード専用の CSS (1品目のみ入力時の表示最大化)
+       ---------------------------------------------------- */
+    .label-body.single-item-mode .table-header {
+      display: none !important;
+    }
+
+    .label-body.single-item-mode .write-rows {
+      display: block;
+      height: 100%;
+    }
+
+    .label-body.single-item-mode .write-row:first-child {
+      height: 20mm; /* 記入欄エリア全体を占有 */
+      border-bottom: 0.4mm solid var(--color-black);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .label-body.single-item-mode .write-row:first-child .row-item-field {
+      font-size: 8.5mm; /* 品目名をドカンと極大化 */
+      font-weight: 900;
+      width: 70%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    .label-body.single-item-mode .write-row:first-child .row-qty-field {
+      font-size: 3.5mm;
+      width: 30%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-bottom: 0;
+    }
+
+    .label-body.single-item-mode .write-row:first-child .row-qty-field span[id^="qty-"] {
+      font-size: 7.5mm; /* 数量を巨大化 */
+      font-weight: 900;
+    }
+
+    .label-body.single-item-mode .write-row:first-child .row-qty-field .unit-text {
+      font-size: 3.5mm; /* 単位もクッキリ */
+      font-weight: 900;
+      margin-left: 1mm;
+    }
+
+    /* 2行目・3行目を完全に隠す */
+    .label-body.single-item-mode .write-row:nth-child(2),
+    .label-body.single-item-mode .write-row:nth-child(3) {
+      display: none !important;
+    }
+
     /* フッターエリア (左側メッセージ・右側連絡先) */
     .label-footer {
       display: flex;
@@ -530,7 +586,7 @@
     <h2>出荷仕分け用カゴラベル 印刷ガイド（10枚共通品目＆店舗一括割り当て対応版）</h2>
     <ul>
       <li>この画面を印刷すると、A4用紙1枚からちょうど<strong>10枚（横2列×縦5段）</strong>のラベルが印刷されます。用紙印刷の方向は<strong>縦向き</strong>です。</li>
-      <li><strong>動的な品目入力</strong>: 品目1を入力すると品目2の行が、品目2を入力すると品目3の行が自動的に出現します。設定内容は全10枚に一斉に印字されます。</li>
+      <li><strong>動的な品目入力</strong>: 品目1を入力すると品目2の行が、品目2を入力すると品目3 of 行が自動的に出現します。設定内容は全10枚に一斉に印字されます。</li>
       <li><strong>左右一括割り当て</strong>: 左半分・右半分のブロックに対して、店舗グループ（大型/中型/小型/全店）をワンクリックで一括セットできます。</li>
       <li><strong>難読化プライベート公開</strong>: このページは他人に推測されにくい秘密のURLで公開されています。URLを知らない第三者はアクセスできません。</li>
       <li><strong>印刷時の設定注意：</strong>
@@ -731,7 +787,7 @@
 
   <!-- ラベル印刷シート（A4縦サイズ） -->
   <div class="print-sheet" id="print-sheet-container">
-    <!-- JSで10枚 of カードを動的に生成します -->
+    <!-- JSで10枚のカードを動的に生成します -->
   </div>
 
   <!-- ----------------------------------------------------
@@ -905,15 +961,6 @@
     function updateItemDisplay(cardId, rowId, value) {
       const itemEl = document.getElementById(`item-${cardId}-${rowId}`);
       itemEl.textContent = value;
-      
-      if (value.length > 8) {
-        itemEl.style.fontSize = '2.5mm';
-      } else if (value.length > 5) {
-        itemEl.style.fontSize = '3.2mm';
-      } else {
-        itemEl.style.fontSize = '4.0mm';
-      }
-      
       checkRowPlaceholder(cardId, rowId);
     }
 
@@ -921,10 +968,6 @@
     function updateQty(cardId, rowId, value) {
       const qtyEl = document.getElementById(`qty-${cardId}-${rowId}`);
       qtyEl.textContent = value;
-      qtyEl.style.fontSize = '3.8mm';
-      qtyEl.style.fontWeight = 'bold';
-      qtyEl.style.marginRight = '0.5mm';
-      
       checkRowPlaceholder(cardId, rowId);
     }
 
@@ -932,9 +975,6 @@
     function updateUnit(cardId, rowId, value) {
       const unitEl = document.getElementById(`unit-${cardId}-${rowId}`);
       unitEl.textContent = value;
-      unitEl.style.fontSize = '2.2mm';
-      unitEl.style.fontWeight = 'bold';
-      
       checkRowPlaceholder(cardId, rowId);
     }
 
@@ -953,6 +993,65 @@
         qtyEl.textContent = "";
       } else {
         unitEl.style.color = '#000000'; // 印字用黒字
+      }
+
+      // レイアウトの自動判定・巨大化切り替え
+      adjustLayoutMode(cardId);
+    }
+
+    // --- レイアウト自動調整ロジック (1品目のみ入力時の表示巨大化) ---
+    function adjustLayoutMode(cardId) {
+      const labelCard = document.getElementById(`dest-display-${cardId}`).closest('.label-card');
+      const labelBody = labelCard.querySelector('.label-body');
+      
+      const item1 = document.getElementById(`item-${cardId}-1`).textContent.trim();
+      const qty1 = document.getElementById(`qty-${cardId}-1`).textContent.trim();
+      const item2 = document.getElementById(`item-${cardId}-2`).textContent.trim();
+      const qty2 = document.getElementById(`qty-${cardId}-2`).textContent.trim();
+      const item3 = document.getElementById(`item-${cardId}-3`).textContent.trim();
+      const qty3 = document.getElementById(`qty-${cardId}-3`).textContent.trim();
+
+      const hasRow1 = item1 !== "" || qty1 !== "";
+      const hasRow2 = item2 !== "" || qty2 !== "";
+      const hasRow3 = item3 !== "" || qty3 !== "";
+
+      // 1行目のみに入力があり、かつ2〜3行目が完全に空の場合に「巨大表示」にする
+      if (hasRow1 && !hasRow2 && !hasRow3) {
+        labelBody.classList.add('single-item-mode');
+        
+        const itemEl = document.getElementById(`item-${cardId}-1`);
+        const qtyEl = document.getElementById(`qty-${cardId}-1`);
+        const val = itemEl.textContent;
+        
+        // 品目名の文字数に応じてフォントサイズを動的に最大化
+        if (val.length > 8) {
+          itemEl.style.fontSize = '5.0mm';
+        } else if (val.length > 5) {
+          itemEl.style.fontSize = '6.8mm';
+        } else {
+          itemEl.style.fontSize = '8.5mm';
+        }
+
+        qtyEl.style.fontSize = '7.5mm';
+      } else {
+        labelBody.classList.remove('single-item-mode');
+        
+        // 従来の均等3行モードのスタイル・サイズに再調整
+        for (let rowId = 1; rowId <= 3; rowId++) {
+          const itemEl = document.getElementById(`item-${cardId}-${rowId}`);
+          const qtyEl = document.getElementById(`qty-${cardId}-${rowId}`);
+          const val = itemEl.textContent;
+          
+          if (val.length > 8) {
+            itemEl.style.fontSize = '2.5mm';
+          } else if (val.length > 5) {
+            itemEl.style.fontSize = '3.2mm';
+          } else {
+            itemEl.style.fontSize = '4.0mm';
+          }
+
+          qtyEl.style.fontSize = '3.8mm';
+        }
       }
     }
 
@@ -982,13 +1081,14 @@
       }
     }
 
+    // 数量の同期
     function handleGlobalQtyInput(rowId, value) {
       for (let i = 1; i <= totalCards; i++) {
         updateQty(i, rowId, value);
       }
     }
 
-    // 共通単位同期
+    // 単位の同期
     function handleGlobalUnitChange(rowId, value) {
       for (let i = 1; i <= totalCards; i++) {
         updateUnit(i, rowId, value);
