@@ -187,8 +187,7 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 20px;
-      border-top: 1px dashed #ccc;
-      padding-top: 16px;
+      padding-top: 8px;
     }
 
     @media (max-width: 600px) {
@@ -511,6 +510,9 @@
       .label-card {
         border: 0.2mm dashed var(--color-black);
       }
+      details {
+        display: none !important; /* 印刷時にアコーディオン見出しが絶対に入らないように */
+      }
     }
   </style>
 </head>
@@ -649,10 +651,17 @@
         </div>
       </div>
 
-      <!-- 個別設定グリッド -->
-      <div class="settings-grid" id="settings-grid-container">
-        <!-- JSで動的に2カラム個別設定を生成して格納します -->
-      </div>
+      <!-- 個別設定エリア（アコーディオンで包み、デフォルトは閉じる） -->
+      <details style="margin-top: 16px; border: 1.5px solid #ccc; border-radius: 8px; background-color: #fafafa;">
+        <summary style="cursor: pointer; padding: 12px; font-size: 14px; font-weight: bold; color: var(--color-dark-gray); user-select: none; display: flex; align-items: center; gap: 6px;">
+          ⚙️ 個別ラベルの微調整設定（普段は使いません・クリックで開閉）
+        </summary>
+        <div style="padding: 0 12px 12px 12px; background-color: #fafafa; border-radius: 0 0 8px 8px;">
+          <div class="settings-grid" id="settings-grid-container">
+            <!-- JSで動的に2カラム個別設定を生成して格納します -->
+          </div>
+        </div>
+      </details>
     </div>
 
     <div class="btn-container">
@@ -662,7 +671,7 @@
 
   <!-- ラベル印刷シート（A4縦サイズ） -->
   <div class="print-sheet" id="print-sheet-container">
-    <!-- JSで10枚 of カードを動的に生成します -->
+    <!-- JSで10枚のカードを動的に生成します -->
   </div>
 
   <!-- ----------------------------------------------------
@@ -868,7 +877,7 @@
       setSeasonalMessage('auto');
     }
 
-    // 行き先表示の更新
+    // 行き先表示 of 更新
     function updateDestination(cardId, value) {
       const displayElement = document.getElementById(`dest-display-${cardId}`);
       const customInput = document.getElementById(`custom-input-${cardId}`);
@@ -993,6 +1002,7 @@
       }
     }
 
+    // 共通品目手動入力時の同期
     function setGlobalItemCustom(value) {
       for (let i = 1; i <= totalCards; i++) {
         const input = document.getElementById(`item-input-${i}-1`);
