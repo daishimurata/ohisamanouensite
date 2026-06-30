@@ -117,7 +117,6 @@
     }
 
     .contact-settings-bar {
-      grid-column: span 2;
       display: flex;
       flex-direction: column;
       gap: 12px;
@@ -150,7 +149,7 @@
     }
 
     @media (max-width: 600px) {
-      .contact-settings-bar, .global-settings-bar {
+      .global-settings-bar {
         grid-column: span 1;
       }
     }
@@ -541,17 +540,6 @@
       <!-- 一括設定コンテナ -->
       <div class="bulk-settings-container">
         
-        <!-- 感謝メッセージ設定バー -->
-        <div class="contact-settings-bar">
-          <div class="contact-settings-row">
-            <span>感謝のメッセージ（フッター左側・薄い文字）：</span>
-            <div style="display: flex; gap: 8px; flex: 1; align-items: center;">
-              <input type="text" id="thanks-text-input" value="いつもありがとうございます" style="flex: 1;" oninput="updateThanksText(this.value)">
-              <button type="button" onclick="shuffleMessage()" style="padding: 6px 12px; font-size: 11px; font-weight: bold; background: var(--color-black); color: white; border: none; border-radius: 4px; cursor: pointer; white-space: nowrap;">🔄 別の言葉に変える</button>
-            </div>
-          </div>
-        </div>
-
         <!-- 【全ラベル共通】品目・数量設定バー（青色強調） -->
         <div class="global-settings-bar">
           <div class="contact-settings-row">
@@ -662,6 +650,17 @@
           </div>
         </div>
       </details>
+
+      <!-- 感謝の言葉設定バー（重要度が低いため一番下に移動） -->
+      <div class="contact-settings-bar" style="margin-top: 16px; margin-bottom: 0; background-color: #f2f2f2; border-left: 5px solid #999; color: #555;">
+        <div class="contact-settings-row">
+          <span>感謝のメッセージ（フッター左側・薄い文字）：</span>
+          <div style="display: flex; gap: 8px; flex: 1; align-items: center;">
+            <input type="text" id="thanks-text-input" value="いつもありがとうございます" style="flex: 1;" oninput="updateThanksText(this.value)">
+            <button type="button" onclick="shuffleMessage()" style="padding: 6px 12px; font-size: 11px; font-weight: bold; background: var(--color-black); color: white; border: none; border-radius: 4px; cursor: pointer; white-space: nowrap;">🔄 別の言葉に変える</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="btn-container">
@@ -877,7 +876,7 @@
       setSeasonalMessage('auto');
     }
 
-    // 行き先表示 of 更新
+    // 行き先表示の更新
     function updateDestination(cardId, value) {
       const displayElement = document.getElementById(`dest-display-${cardId}`);
       const customInput = document.getElementById(`custom-input-${cardId}`);
@@ -1011,6 +1010,7 @@
       }
     }
 
+    // 共通数量同期
     function setGlobalQty(value) {
       for (let i = 1; i <= totalCards; i++) {
         const qtyInput = document.getElementById(`qty-input-${i}-1`);
@@ -1019,6 +1019,7 @@
       }
     }
 
+    // 共通単位同期
     function setGlobalUnit(value) {
       for (let i = 1; i <= totalCards; i++) {
         const unitSelect = document.getElementById(`unit-select-${i}-1`);
