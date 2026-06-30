@@ -476,6 +476,7 @@
     <h2>出荷仕分け用カゴラベル 印刷ガイド（感謝メッセージ・連絡先付版）</h2>
     <ul>
       <li>この画面を印刷すると、A4用紙1枚からちょうど<strong>10枚（横2列×縦5段）</strong>のラベルが印刷されます。用紙印刷の方向は<strong>縦向き</strong>です。</li>
+      <li><strong>感謝の言葉自動セット</strong>: 現在の季節（日付）を自動判定し、最適な感謝メッセージ（「暑い中〜」等）を自動的に選びます。「🔄 別の言葉に変える」ボタンでメッセージが変更できます。</li>
       <li><strong>難読化プライベート公開</strong>: このページは他人に推測されにくい秘密のURLで公開されています。URLを知らない第三者はアクセスできません。</li>
       <li><strong>印刷時の設定注意：</strong>
         <ul>
@@ -497,14 +498,6 @@
             <span>感謝のメッセージ（フッター左側・薄い文字）：</span>
             <div style="display: flex; gap: 8px; flex: 1; align-items: center;">
               <input type="text" id="thanks-text-input" value="いつもありがとうございます" style="flex: 1;" oninput="updateThanksText(this.value)">
-              <select id="season-selector" onchange="setSeasonalMessage(this.value)" style="padding: 6px;">
-                <option value="auto">現在の季節から自動選択</option>
-                <option value="random">完全にランダムで選択</option>
-                <option value="spring">春のメッセージ</option>
-                <option value="summer">夏のメッセージ</option>
-                <option value="autumn">秋のメッセージ</option>
-                <option value="winter">冬のメッセージ</option>
-              </select>
               <button type="button" onclick="shuffleMessage()" style="padding: 6px 12px; font-size: 11px; font-weight: bold; background: var(--color-black); color: white; border: none; border-radius: 4px; cursor: pointer; white-space: nowrap;">🔄 別の言葉に変える</button>
             </div>
           </div>
@@ -1213,7 +1206,6 @@
       }
       
       if (actualSeason === 'random') {
-        // すべてのプールを結合
         pool = [
           ...messagePool.general, 
           ...messagePool.spring, 
@@ -1222,7 +1214,6 @@
           ...messagePool.winter
         ];
       } else {
-        // 汎用＋指定の季節プール
         pool = [...messagePool.general, ...messagePool[actualSeason]];
       }
       
@@ -1233,10 +1224,9 @@
       updateThanksText(selectedMsg);
     }
 
-    // メッセージの切り替えボタンが押されたとき
+    // メッセージの切り替えボタンが押されたとき（常に現在の季節からランダムに切り替え）
     function shuffleMessage() {
-      const type = document.getElementById('season-selector').value;
-      setSeasonalMessage(type);
+      setSeasonalMessage('auto');
     }
 
     // 個別ラベルの行き先を更新する関数
