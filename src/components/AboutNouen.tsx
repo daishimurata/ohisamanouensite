@@ -27,6 +27,20 @@ export const AboutNouen = () => {
                 <td>就労継続支援B型事業所 おひさま農園</td>
               </tr>
               <tr>
+                <th>所在地</th>
+                <td>
+                  〒510-0323 三重県鈴鹿市伊船町2756-1<br />
+                  <a 
+                    href="https://www.google.com/maps/search/?api=1&query=三重県鈴鹿市伊船町2756-1+おひさま農園" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    style={{ color: '#0066cc', textDecoration: 'underline', fontSize: '0.9em', display: 'inline-block', marginTop: '4px' }}
+                  >
+                    [Googleマップで見る]
+                  </a>
+                </td>
+              </tr>
+              <tr>
                 <th>定員</th>
                 <td>20名</td>
               </tr>
