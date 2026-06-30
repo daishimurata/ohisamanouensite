@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>出荷仕分け用カゴラベルテンプレート（季節メッセージ付・品目数量選択・白黒印刷） - おひさま農園</title>
+  <title>出荷仕分け用カゴラベルテンプレート（季節メッセージ付・グループ一括設定・品目数量共通設定） - おひさま農園</title>
   <style>
     /* ----------------------------------------------------
        🎨 COLOR PALETTE (白黒・モノクロ印刷に最適化された高コントラスト設定)
@@ -129,8 +129,28 @@
       margin-bottom: 16px;
     }
 
+    /* 全ラベル共通設定バーの特別デザイン（青基調で強調） */
+    .global-settings-bar {
+      grid-column: span 2;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background-color: #dbeafe; /* 薄い青 */
+      border-left: 5px solid #2563eb;
+      padding: 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 16px;
+      color: #1e3a8a;
+    }
+
+    .global-settings-bar span {
+      color: #1e3a8a;
+    }
+
     @media (max-width: 600px) {
-      .contact-settings-bar {
+      .contact-settings-bar, .global-settings-bar {
         grid-column: span 1;
       }
     }
@@ -498,11 +518,11 @@
 
   <!-- 印刷ガイド & 設定パネル（画面上でのみ表示） -->
   <div class="print-guide">
-    <h2>出荷仕分け用カゴラベル 印刷ガイド（感謝メッセージ・品目数量対応版）</h2>
+    <h2>出荷仕分け用カゴラベル 印刷ガイド（グループ設定＆共通品目対応版）</h2>
     <ul>
       <li>この画面を印刷すると、A4用紙1枚からちょうど<strong>10枚（横2列×縦5段）</strong>のラベルが印刷されます。用紙印刷の方向は<strong>縦向き</strong>です。</li>
-      <li><strong>感謝の言葉自動セット</strong>: 現在の季節を自動判定し、最適な感謝メッセージ（「暑い中〜」等）を選びます。「🔄 別の言葉に変える」ボタンで切り替えられます。</li>
-      <li><strong>品目＆個数の印字機能</strong>: 行き先に加えて、出荷する品目・数量も画面上で選択・入力して事前に印刷できます。設定がない行は手書き用の空欄として出力されます。</li>
+      <li><strong>全ラベル共通：品目・数量設定</strong>: 一度に全10枚分の品目・数量を素早くセットできます。個別での微調整や、手書き用空欄のままでの出力も可能です。</li>
+      <li><strong>グループ一括割り当て</strong>: 「大型店だけに出荷」「中型店だけに出荷」「全店舗（1〜10店舗目まで）に自動割り当て」などがボタン一つで設定できます。</li>
       <li><strong>難読化プライベート公開</strong>: このページは他人に推測されにくい秘密のURLで公開されています。URLを知らない第三者はアクセスできません。</li>
       <li><strong>印刷時の設定注意：</strong>
         <ul>
@@ -516,8 +536,9 @@
     <div class="settings-section">
       <div class="settings-title">📍 ラベルの設定</div>
       
-      <!-- 一括設定コンテナ（左右半分ずつ） -->
+      <!-- 一括設定コンテナ -->
       <div class="bulk-settings-container">
+        
         <!-- 感謝メッセージ設定バー -->
         <div class="contact-settings-bar">
           <div class="contact-settings-row">
@@ -529,37 +550,19 @@
           </div>
         </div>
 
-        <!-- 左半分一括設定 -->
-        <div class="bulk-settings">
-          <span>左半分（奇数ラベル：1, 3, 5, 7, 9）を一括設定：</span>
-          <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 6px;">
-            <div style="display: flex; gap: 6px; align-items: center;">
-              <span style="font-size: 12px; min-width: 45px;">行き先:</span>
-              <select id="bulk-select-left" onchange="bulkSetDestinations('left', this.value)" style="flex: 1;">
-                <option value="-">-- 選択してください --</option>
-                <option value="">（空欄・手書き用）</option>
-                <option value="ハンター">ハンター</option>
-                <option value="カヨー">カヨー</option>
-                <option value="いくわ">いくわ</option>
-                <option value="桑名">桑名</option>
-                <option value="大矢知">大矢知</option>
-                <option value="エコー">エコー</option>
-                <option value="河芸">河芸</option>
-                <option value="菰野">菰野</option>
-                <option value="川越">川越</option>
-                <option value="一番街">一番街</option>
-                <option value="桜花台">桜花台</option>
-                <option value="サンビーム">サンビーム</option>
-              </select>
-            </div>
-            <div style="display: flex; gap: 4px; align-items: center;">
-              <span style="font-size: 12px; min-width: 45px;">品目 1:</span>
-              <select id="bulk-item-select-left" onchange="bulkSetItems('left', 1, this.value)" style="flex: 1;">
-                <option value="-">-- 選択してください --</option>
+        <!-- 【全ラベル共通】品目・数量設定バー（青色強調） -->
+        <div class="global-settings-bar">
+          <div class="contact-settings-row">
+            <span>【共通設定】品目・数量（全10枚一括で反映）：</span>
+            <div style="display: flex; gap: 8px; flex: 1; align-items: center;">
+              <select id="global-item-select" onchange="setGlobalItem(this.value)" style="flex: 1;">
                 <option value="">（空欄）</option>
                 <option value="じゃがいも">じゃがいも</option>
                 <option value="玉ねぎ">玉ねぎ</option>
                 <option value="にんじん">にんじん</option>
+                <option value="なす">なす</option>
+                <option value="オクラ">オクラ</option>
+                <option value="ズッキーニ">ズッキーニ</option>
                 <option value="ねぎ">ねぎ</option>
                 <option value="キャベツ">キャベツ</option>
                 <option value="にんにく">にんにく</option>
@@ -567,10 +570,10 @@
                 <option value="かぼちゃ">かぼちゃ</option>
                 <option value="custom">直接入力...</option>
               </select>
-              <input type="text" id="bulk-item-input-left" placeholder="品目名" style="display:none; width: 75px;" oninput="bulkSetItemsCustom('left', 1, this.value)">
-              <span style="font-size: 11px;">数量:</span>
-              <input type="text" id="bulk-qty-input-left" placeholder="数" style="width: 35px;" oninput="bulkSetQtys('left', 1, this.value)">
-              <select id="bulk-unit-select-left" onchange="bulkSetUnits('left', 1, this.value)" style="width: 45px;">
+              <input type="text" id="global-item-input" placeholder="品目名" style="display:none; width: 100px;" oninput="setGlobalItemCustom(this.value)">
+              <span style="font-size: 12px; color: #1e3a8a;">数量:</span>
+              <input type="text" id="global-qty-input" placeholder="数" style="width: 45px;" oninput="setGlobalQty(this.value)">
+              <select id="global-unit-select" onchange="setGlobalUnit(this.value)" style="width: 55px;">
                 <option value="袋">袋</option>
                 <option value="箱">箱</option>
                 <option value="束">束</option>
@@ -580,55 +583,69 @@
           </div>
         </div>
 
+        <!-- 全体グループ一括割り当て（上段にドカンと配置） -->
+        <div class="bulk-settings" style="grid-column: span 2;">
+          <span>用紙全体（1〜10枚目）へのグループ一括割り当て（規模別）：</span>
+          <select id="bulk-select-all-groups" onchange="bulkSetAllGroups(this.value)" style="padding: 8px 12px; font-weight: bold; border: 1.5px solid var(--color-black);">
+            <option value="-">-- 選択してください --</option>
+            <option value="large">大型店出荷 (1〜4枚目に ハンター / カヨー / いくわ / 桑名 を自動割り当て)</option>
+            <option value="medium">中型店出荷 (1〜5枚目に 大矢知 / エコー / 河芸 / 菰野 / 川越 を自動割り当て)</option>
+            <option value="small">小型店出荷 (1〜3枚目に 一番街 / 桜花台 / サンビーム を自動割り当て)</option>
+            <option value="all">全店舗出荷 (1〜10枚目に 主要10店舗 を上から順番に自動割り当て)</option>
+            <option value="clear">（すべての行き先をクリアして空欄にする）</option>
+          </select>
+        </div>
+
+        <!-- 左半分一括設定 -->
+        <div class="bulk-settings">
+          <span>左半分（奇数ラベル：1, 3, 5, 7, 9）の行き先一括設定：</span>
+          <select id="bulk-select-left" onchange="bulkSetDestinations('left', this.value)">
+            <option value="-">-- 選択してください --</option>
+            <option value="">（空欄・手書き用）</option>
+            <option value="group-large">【グループ】大型店一括 (4店舗)</option>
+            <option value="group-medium">【グループ】中型店一括 (5店舗)</option>
+            <option value="group-small">【グループ】小型店一括 (3店舗)</option>
+            <option value="group-all">【グループ】全店舗一括 (10店舗分)</option>
+            <option value="-">-- 個別店舗 --</option>
+            <option value="ハンター">ハンター (大型)</option>
+            <option value="カヨー">カヨー (大型)</option>
+            <option value="いくわ">いくわ (大型)</option>
+            <option value="桑名">桑名 (大型)</option>
+            <option value="大矢知">大矢知 (中型)</option>
+            <option value="エコー">エコー (中型・力作店)</option>
+            <option value="河芸">河芸 (中型)</option>
+            <option value="菰野">菰野 (中型)</option>
+            <option value="川越">川越 (中型)</option>
+            <option value="一番街">一番街 (小型)</option>
+            <option value="桜花台">桜花台 (小型)</option>
+            <option value="サンビーム">サンビーム (小型)</option>
+          </select>
+        </div>
+
         <!-- 右半分一括設定 -->
         <div class="bulk-settings">
-          <span>右半分（偶数ラベル：2, 4, 6, 8, 10）を一括設定：</span>
-          <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 6px;">
-            <div style="display: flex; gap: 6px; align-items: center;">
-              <span style="font-size: 12px; min-width: 45px;">行き先:</span>
-              <select id="bulk-select-right" onchange="bulkSetDestinations('right', this.value)" style="flex: 1;">
-                <option value="-">-- 選択してください --</option>
-                <option value="">（空欄・手書き用）</option>
-                <option value="ハンター">ハンター</option>
-                <option value="カヨー">カヨー</option>
-                <option value="いくわ">いくわ</option>
-                <option value="桑名">桑名</option>
-                <option value="大矢知">大矢知</option>
-                <option value="エコー">エコー</option>
-                <option value="河芸">河芸</option>
-                <option value="菰野">菰野</option>
-                <option value="川越">川越</option>
-                <option value="一番街">一番街</option>
-                <option value="桜花台">桜花台</option>
-                <option value="サンビーム">サンビーム</option>
-              </select>
-            </div>
-            <div style="display: flex; gap: 4px; align-items: center;">
-              <span style="font-size: 12px; min-width: 45px;">品目 1:</span>
-              <select id="bulk-item-select-right" onchange="bulkSetItems('right', 1, this.value)" style="flex: 1;">
-                <option value="-">-- 選択してください --</option>
-                <option value="">（空欄）</option>
-                <option value="じゃがいも">じゃがいも</option>
-                <option value="玉ねぎ">玉ねぎ</option>
-                <option value="にんじん">にんじん</option>
-                <option value="ねぎ">ねぎ</option>
-                <option value="キャベツ">キャベツ</option>
-                <option value="にんにく">にんにく</option>
-                <option value="サツマイモ">サツマイモ</option>
-                <option value="かぼちゃ">かぼちゃ</option>
-                <option value="custom">直接入力...</option>
-              </select>
-              <input type="text" id="bulk-item-input-right" placeholder="品目名" style="display:none; width: 75px;" oninput="bulkSetItemsCustom('right', 1, this.value)">
-              <span style="font-size: 11px;">数量:</span>
-              <input type="text" id="bulk-qty-input-right" placeholder="数" style="width: 35px;" oninput="bulkSetQtys('right', 1, this.value)">
-              <select id="bulk-unit-select-right" onchange="bulkSetUnits('right', 1, this.value)" style="width: 45px;">
-                <option value="袋">袋</option>
-                <option value="箱">箱</option>
-                <option value="束">束</option>
-                <option value="個">個</option>
-              </select>
-            </div>
-          </div>
+          <span>右半分（偶数ラベル：2, 4, 6, 8, 10）の行き先一括設定：</span>
+          <select id="bulk-select-right" onchange="bulkSetDestinations('right', this.value)">
+            <option value="-">-- 選択してください --</option>
+            <option value="">（空欄・手書き用）</option>
+            <option value="group-large">【グループ】大型店一括 (4店舗)</option>
+            <option value="group-medium">【グループ】中型店一括 (5店舗)</option>
+            <option value="group-small">【グループ】小型店一括 (3店舗)</option>
+            <option value="group-all">【グループ】全店舗一括 (10店舗分)</option>
+            <option value="-">-- 個別店舗 --</option>
+            <option value="ハンター">ハンター (大型)</option>
+            <option value="カヨー">カヨー (大型)</option>
+            <option value="いくわ">いくわ (大型)</option>
+            <option value="桑名">桑名 (大型)</option>
+            <option value="大矢知">大矢知 (中型)</option>
+            <option value="エコー">エコー (中型・力作店)</option>
+            <option value="河芸">河芸 (中型)</option>
+            <option value="菰野">菰野 (中型)</option>
+            <option value="川越">川越 (中型)</option>
+            <option value="一番街">一番街 (小型)</option>
+            <option value="桜花台">桜花台 (小型)</option>
+            <option value="サンビーム">サンビーム (小型)</option>
+          </select>
         </div>
       </div>
 
@@ -645,7 +662,7 @@
 
   <!-- ラベル印刷シート（A4縦サイズ） -->
   <div class="print-sheet" id="print-sheet-container">
-    <!-- JSで10枚のカードを動的に生成します -->
+    <!-- JSで10枚 of カードを動的に生成します -->
   </div>
 
   <!-- ----------------------------------------------------
@@ -655,8 +672,14 @@
     // 定数定義
     const totalCards = 10;
     const destinations = ["ハンター", "カヨー", "いくわ", "桑名", "大矢知", "エコー", "河芸", "菰野", "川越", "一番街", "桜花台", "サンビーム"];
-    const standardItems = ["じゃがいも", "玉ねぎ", "にんじん", "ねぎ", "キャベツ", "にんにく", "サツマイモ", "かぼちゃ"];
+    const standardItems = ["じゃがいも", "玉ねぎ", "にんじん", "なす", "オクラ", "ズッキーニ", "ねぎ", "キャベツ", "にんにく", "サツマイモ", "かぼちゃ"];
     
+    // 店舗グループ
+    const groupLarge = ["ハンター", "カヨー", "いくわ", "桑名"];
+    const groupMedium = ["大矢知", "エコー", "河芸", "菰野", "川越"];
+    const groupSmall = ["一番街", "桜花台", "サンビーム"];
+    const groupAll = [...groupLarge, ...groupMedium, ...groupSmall];
+
     // 感謝の言葉データベース (季節別 ＆ 汎用)
     const messagePool = {
       general: ["いつもありがとうございます", "丁寧な仕分けに感謝いたします", "本日もよろしくお願いいたします", "仕分け作業ありがとうございます", "お届けありがとうございます", "いつも丁寧な作業をありがとうございます"],
@@ -943,68 +966,140 @@
       }
     }
 
-    // --- 一括設定ロジック ---
+    // --- 全ラベル共通 品目・数量 設定ロジック ---
+    function setGlobalItem(value) {
+      const globalInput = document.getElementById('global-item-input');
+      const itemValue = value === "custom" ? globalInput.value : value;
+      
+      if (value === "custom") {
+        globalInput.style.display = "inline-block";
+      } else {
+        globalInput.style.display = "none";
+      }
+
+      for (let i = 1; i <= totalCards; i++) {
+        const select = document.getElementById(`item-select-${i}-1`);
+        const input = document.getElementById(`item-input-${i}-1`);
+        
+        if (value === "custom") {
+          select.value = "custom";
+          input.style.display = "inline-block";
+          input.value = itemValue;
+        } else {
+          select.value = value;
+          input.style.display = "none";
+        }
+        updateItemDisplay(i, 1, itemValue);
+      }
+    }
+
+    function setGlobalItemCustom(value) {
+      for (let i = 1; i <= totalCards; i++) {
+        const input = document.getElementById(`item-input-${i}-1`);
+        if (input) input.value = value;
+        updateItemDisplay(i, 1, value);
+      }
+    }
+
+    function setGlobalQty(value) {
+      for (let i = 1; i <= totalCards; i++) {
+        const qtyInput = document.getElementById(`qty-input-${i}-1`);
+        if (qtyInput) qtyInput.value = value;
+        updateQty(i, 1, value);
+      }
+    }
+
+    function setGlobalUnit(value) {
+      for (let i = 1; i <= totalCards; i++) {
+        const unitSelect = document.getElementById(`unit-select-${i}-1`);
+        if (unitSelect) unitSelect.value = value;
+        updateUnit(i, 1, value);
+      }
+    }
+
+    // --- 全用紙一括グループ割り当て ---
+    function bulkSetAllGroups(groupType) {
+      if (groupType === "-") return;
+
+      let targetList = [];
+      if (groupType === 'large') targetList = groupLarge;
+      else if (groupType === 'medium') targetList = groupMedium;
+      else if (groupType === 'small') targetList = groupSmall;
+      else if (groupType === 'all') targetList = groupAll;
+
+      // 全カードを一旦クリア
+      for (let i = 1; i <= totalCards; i++) {
+        const select = document.getElementById(`select-${i}`);
+        const customInput = document.getElementById(`custom-input-${i}`);
+        select.value = "";
+        customInput.style.display = "none";
+        customInput.value = "";
+        updateDestination(i, "");
+      }
+
+      if (groupType === 'clear') return;
+
+      // 1番から順に割り当て
+      for (let idx = 0; idx < targetList.length; idx++) {
+        const cardNum = idx + 1;
+        if (cardNum > totalCards) break;
+        
+        const select = document.getElementById(`select-${cardNum}`);
+        const shopName = targetList[idx];
+        
+        select.value = shopName;
+        updateDestination(cardNum, shopName);
+      }
+      
+      document.getElementById('bulk-select-all-groups').value = "-";
+    }
+
+    // --- 左右半分ずつの行き先一括設定 ---
     function bulkSetDestinations(target, value) {
       if (value === "-") return;
       const cards = target === 'left' ? [1, 3, 5, 7, 9] : [2, 4, 6, 8, 10];
       
-      for (const i of cards) {
-        const select = document.getElementById(`select-${i}`);
-        const customInput = document.getElementById(`custom-input-${i}`);
-        
-        if (value === "custom") {
-          select.value = "custom";
-          customInput.style.display = "inline-block";
-        } else {
-          select.value = value;
-          customInput.style.display = "none";
-          updateDestination(i, value);
-        }
-      }
-    }
-
-    function bulkSetItems(target, rowId, value) {
-      if (value === "-") return;
-      const cards = target === 'left' ? [1, 3, 5, 7, 9] : [2, 4, 6, 8, 10];
-      const bulkInput = document.getElementById(`bulk-item-input-${target}`);
+      let useGroup = false;
+      let targetList = [];
       
-      if (value === "custom") {
-        bulkInput.style.display = "inline-block";
-        bulkSetItemsDisplay(target, rowId, bulkInput.value);
-      } else {
-        bulkInput.style.display = "none";
-        bulkSetItemsDisplay(target, rowId, value);
-      }
-    }
+      if (value === "group-large") { useGroup = true; targetList = groupLarge; }
+      else if (value === "group-medium") { useGroup = true; targetList = groupMedium; }
+      else if (value === "group-small") { useGroup = true; targetList = groupSmall; }
+      else if (value === "group-all") { useGroup = true; targetList = groupAll; }
 
-    function bulkSetItemsCustom(target, rowId, value) {
-      bulkSetItemsDisplay(target, rowId, value);
-    }
-
-    function bulkSetItemsDisplay(target, rowId, value) {
-      const cards = target === 'left' ? [1, 3, 5, 7, 9] : [2, 4, 6, 8, 10];
-      for (const i of cards) {
-        const select = document.getElementById(`item-select-${i}-${rowId}`);
-        const customInput = document.getElementById(`item-input-${i}-${rowId}`);
-        
-        if (document.getElementById(`bulk-item-select-${target}`).value === "custom") {
-          select.value = "custom";
-          customInput.style.display = "inline-block";
-          customInput.value = value;
-        } else {
-          select.value = value;
-          customInput.style.display = "none";
+      if (useGroup) {
+        // グループ一括割り当て：指定のカラムに上から順に店舗を設定
+        for (let idx = 0; idx < cards.length; idx++) {
+          const cardId = cards[idx];
+          const select = document.getElementById(`select-${cardId}`);
+          const customInput = document.getElementById(`custom-input-${cardId}`);
+          
+          if (idx < targetList.length) {
+            const shopName = targetList[idx];
+            select.value = shopName;
+            customInput.style.display = "none";
+            updateDestination(cardId, shopName);
+          } else {
+            select.value = "";
+            customInput.style.display = "none";
+            updateDestination(cardId, "");
+          }
         }
-        updateItemDisplay(i, rowId, value);
-      }
-    }
-
-    function bulkSetQtys(target, rowId, value) {
-      const cards = target === 'left' ? [1, 3, 5, 7, 9] : [2, 4, 6, 8, 10];
-      for (const i of cards) {
-        const qtyInput = document.getElementById(`qty-input-${i}-${rowId}`);
-        qtyInput.value = value;
-        updateQty(i, rowId, value);
+      } else {
+        // 単一店舗の割り当て
+        for (const i of cards) {
+          const select = document.getElementById(`select-${i}`);
+          const customInput = document.getElementById(`custom-input-${i}`);
+          
+          if (value === "custom") {
+            select.value = "custom";
+            customInput.style.display = "inline-block";
+          } else {
+            select.value = value;
+            customInput.style.display = "none";
+            updateDestination(i, value);
+          }
+        }
       }
     }
 
