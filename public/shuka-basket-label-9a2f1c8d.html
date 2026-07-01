@@ -334,10 +334,27 @@
 
     .header-left {
       width: 38%;
-      font-size: 5.6mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100%;
+    }
+
+    .farm-name {
+      font-size: 5.4mm;
       font-weight: 900;
       color: var(--color-black);
       letter-spacing: 0.2mm;
+      line-height: 1.1;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    .date-display {
+      font-size: 2.8mm;
+      font-weight: bold;
+      margin-top: 1.0mm;
+      color: var(--color-medium-gray);
       line-height: 1;
       text-align: left;
       white-space: nowrap;
@@ -608,6 +625,19 @@
     <div class="settings-section">
       <div class="settings-title">📍 ラベルの設定</div>
       
+      <!-- 【全ラベル共通】日付設定バー（オレンジ強調） -->
+      <div class="global-settings-bar" style="background-color: #fffbeb; border-left: 5px solid #d97706; color: #92400e; margin-bottom: 12px;">
+        <div style="font-size: 13px; font-weight: bold; margin-bottom: 4px;">📅 出荷日の設定（10枚すべてに共通で反映）</div>
+        <div class="contact-settings-row">
+          <span style="min-width: 50px; color: #92400e;">出荷日:</span>
+          <div style="display: flex; gap: 8px; flex: 1; align-items: center;">
+            <input type="text" id="global-date-input" placeholder="例: 7/1" style="flex: 1; max-width: 250px; border-color: #f59e0b;" oninput="handleGlobalDateInput(this.value)">
+            <button type="button" onclick="setTodayDate()" style="padding: 6px 12px; font-size: 11px; font-weight: bold; background: #d97706; color: white; border: none; border-radius: 4px; cursor: pointer; white-space: nowrap;">📅 今日</button>
+            <button type="button" onclick="clearDateInput()" style="padding: 6px 12px; font-size: 11px; font-weight: bold; background: #999; color: white; border: none; border-radius: 4px; cursor: pointer; white-space: nowrap;">🧹 空欄</button>
+          </div>
+        </div>
+      </div>
+
       <!-- 【全ラベル共通】品目・数量設定バー（青色強調・動的行出現） -->
       <div class="global-settings-bar">
         <div style="font-size: 13px; font-weight: bold; margin-bottom: 4px;">🛍️ 品目・数量の設定（10枚すべてに共通で反映）</div>
@@ -825,7 +855,40 @@
     window.onload = function() {
       generateHTMLMarkup();
       setSeasonalMessage('auto');
+      setTodayDate();
     };
+
+    // 日付制御関数
+    function setTodayDate() {
+      const today = new Date();
+      const m = today.getMonth() + 1;
+      const d = today.getDate();
+      const dateStr = `${m}/${d}`;
+      document.getElementById('global-date-input').value = dateStr;
+      updateDateDisplay(dateStr);
+    }
+
+    function clearDateInput() {
+      document.getElementById('global-date-input').value = "";
+      updateDateDisplay("");
+    }
+
+    function handleGlobalDateInput(value) {
+      updateDateDisplay(value);
+    }
+
+    function updateDateDisplay(value) {
+      for (let i = 1; i <= totalCards; i++) {
+        const dateValEl = document.getElementById(`date-value-${i}`);
+        if (!dateValEl) continue;
+        if (value.trim() === "") {
+          // 空欄の場合は手書き用の下線を表示
+          dateValEl.innerHTML = '<span style="border-bottom: 0.2mm solid var(--color-medium-gray); width: 10mm; display: inline-block; height: 2.5mm; vertical-align: bottom; margin-left: 1mm;"></span>';
+        } else {
+          dateValEl.innerHTML = '&nbsp;' + value;
+        }
+      }
+    }
 
     // HTMLマークアップを動的生成
     function generateHTMLMarkup() {
@@ -865,7 +928,10 @@
         sheetHTML += `
           <div class="label-card">
             <div class="label-header">
-              <div class="header-left">おひさま農園</div>
+              <div class="header-left">
+                <div class="farm-name">おひさま農園</div>
+                <div class="date-display">出荷日:<span id="date-value-${i}"></span></div>
+              </div>
               <div class="header-arrow">➡</div>
               <div class="header-right" id="dest-display-${i}">
                 <span class="dest-line"></span>
