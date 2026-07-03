@@ -328,12 +328,12 @@
       justify-content: space-between;
       border-bottom: 0.8mm solid var(--color-black);
       padding-bottom: 1.2mm;
-      margin-bottom: 1.2mm;
+      margin-bottom: 1.0mm;
       height: 20mm;
     }
 
     .header-left {
-      width: 38%;
+      width: 25%;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -361,7 +361,7 @@
     }
 
     .header-arrow {
-      width: 10%;
+      width: 8%;
       font-size: 6.0mm;
       font-weight: 900;
       color: var(--color-black);
@@ -370,7 +370,7 @@
     }
 
     .header-right {
-      width: 52%;
+      width: 67%;
       display: flex;
       align-items: center;
       justify-content: flex-end;
@@ -387,7 +387,7 @@
 
     /* 選択された行き先がそのまま印刷されるテキスト */
     .dest-text {
-      font-size: 8.0mm;
+      font-size: 12.0mm;
       font-weight: 900;
       color: var(--color-black);
       border-bottom: 0.3mm solid var(--color-black);
@@ -545,9 +545,9 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
-      margin-top: 1.5mm;
-      height: 4.2mm;
-      line-height: 1;
+      margin-top: 1.0mm;
+      height: 6.5mm;
+      line-height: 1.2;
       width: 100%;
     }
 
@@ -560,11 +560,23 @@
     }
 
     .label-footer-contact {
-      font-size: 2.6mm;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: flex-end;
       font-weight: bold;
       color: var(--color-black);
-      letter-spacing: 0.15mm;
+      letter-spacing: 0.1mm;
       text-align: right;
+    }
+
+    .contact-tel {
+      font-size: 2.4mm;
+    }
+
+    .contact-farm {
+      font-size: 2.2mm;
+      margin-top: 0.3mm;
     }
 
     /* ----------------------------------------------------
@@ -654,11 +666,12 @@
               <option value="なす">なす</option>
               <option value="オクラ">オクラ</option>
               <option value="ズッキーニ">ズッキーニ</option>
-              <option value="ねぎ">ねぎ</option>
+              <option value="白ねぎ">白ねぎ</option>
               <option value="キャベツ">キャベツ</option>
               <option value="にんにく">にんにく</option>
               <option value="サツマイモ">サツマイモ</option>
               <option value="かぼちゃ">かぼちゃ</option>
+              <option value="とうもろこし">とうもろこし</option>
               <option value="custom">直接入力...</option>
             </select>
             <input type="text" id="global-item-input-1" placeholder="品目名" style="display:none; width: 100px;" oninput="handleGlobalItemCustomInput(1, this.value)">
@@ -685,11 +698,12 @@
               <option value="なす">なす</option>
               <option value="オクラ">オクラ</option>
               <option value="ズッキーニ">ズッキーニ</option>
-              <option value="ねぎ">ねぎ</option>
+              <option value="白ねぎ">白ねぎ</option>
               <option value="キャベツ">キャベツ</option>
               <option value="にんにく">にんにく</option>
               <option value="サツマイモ">サツマイモ</option>
               <option value="かぼちゃ">かぼちゃ</option>
+              <option value="とうもろこし">とうもろこし</option>
               <option value="custom">直接入力...</option>
             </select>
             <input type="text" id="global-item-input-2" placeholder="品目名" style="display:none; width: 100px;" oninput="handleGlobalItemCustomInput(2, this.value)">
@@ -716,11 +730,12 @@
               <option value="なす">なす</option>
               <option value="オクラ">オクラ</option>
               <option value="ズッキーニ">ズッキーニ</option>
-              <option value="ねぎ">ねぎ</option>
+              <option value="白ねぎ">白ねぎ</option>
               <option value="キャベツ">キャベツ</option>
               <option value="にんにく">にんにく</option>
               <option value="サツマイモ">サツマイモ</option>
               <option value="かぼちゃ">かぼちゃ</option>
+              <option value="とうもろこし">とうもろこし</option>
               <option value="custom">直接入力...</option>
             </select>
             <input type="text" id="global-item-input-3" placeholder="品目名" style="display:none; width: 100px;" oninput="handleGlobalItemCustomInput(3, this.value)">
@@ -929,8 +944,7 @@
           <div class="label-card">
             <div class="label-header">
               <div class="header-left">
-                <div class="farm-name">おひさま農園</div>
-                <div class="date-display">出荷日:<span id="date-value-${i}"></span></div>
+                <div class="date-display" style="font-size: 3.2mm;">出荷日:<span id="date-value-${i}"></span></div>
               </div>
               <div class="header-arrow">➡</div>
               <div class="header-right" id="dest-display-${i}">
@@ -959,7 +973,10 @@
             </div>
             <div class="label-footer">
               <div class="label-footer-thanks">いつもありがとうございます</div>
-              <div class="label-footer-contact">TEL 059-387-5397</div>
+              <div class="label-footer-contact">
+                <div class="contact-tel">TEL 059-387-5397</div>
+                <div class="contact-farm">おひさま農園</div>
+              </div>
             </div>
           </div>`;
       }
@@ -1014,7 +1031,13 @@
         if (value === "") {
           displayElement.innerHTML = '<span class="dest-line"></span>';
         } else {
-          displayElement.innerHTML = `<span class="dest-text">${value}</span>`;
+          let fontSize = '12.0mm';
+          if (value.length > 5) {
+            fontSize = '9.0mm';
+          } else if (value.length > 4) {
+            fontSize = '10.5mm';
+          }
+          displayElement.innerHTML = `<span class="dest-text" style="font-size: ${fontSize};">${value}</span>`;
         }
       }
     }
@@ -1024,7 +1047,13 @@
       if (value.trim() === "") {
         displayElement.innerHTML = '<span class="dest-line"></span>';
       } else {
-        displayElement.innerHTML = `<span class="dest-text">${value}</span>`;
+        let fontSize = '12.0mm';
+        if (value.length > 5) {
+          fontSize = '9.0mm';
+        } else if (value.length > 4) {
+          fontSize = '10.5mm';
+        }
+        displayElement.innerHTML = `<span class="dest-text" style="font-size: ${fontSize};">${value}</span>`;
       }
     }
 
